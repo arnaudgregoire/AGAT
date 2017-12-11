@@ -1,11 +1,23 @@
 package eu.ensg.tsi.agat.domain;
 
+import eu.ensg.tsi.agat.persistance.ASCWriter;
+import geotools.ShapefileReader;
+
 public class Map {
 
 	private IGeneratorStrategy generator;
 	private double[][] data;
+	private int sizeX;
+	private int sizeY;
 	public Bound bound; // Mon nom est Bound, James Bound
-	public double resolution;
+	public int resolution;
+	
+	public Bound importShapefileBound(String nomFichier) {
+		ShapefileReader shpReader = new ShapefileReader();
+		Bound shpBound = shpReader.getBoundofShapefile(nomFichier);
+		this.bound = shpBound;
+		return shpBound;
+	}
 	
 	/**
 	 * Un affichage console des valeurs du MNT sous la forme
@@ -29,7 +41,7 @@ public class Map {
 	 * @param bound Les bords de la map
 	 * @param resolution la résolution souhaité
 	 */
-	public Map(IGeneratorStrategy generator, Bound bound, double resolution) {
+	public Map(IGeneratorStrategy generator, Bound bound, int resolution) {
 		super();
 		this.generator = generator;
 		this.bound = bound;
@@ -37,6 +49,11 @@ public class Map {
 	}
 
 	
+	public Map(IGeneratorStrategy generator, int resolution) {
+		this.generator = generator;
+		this.resolution = resolution;
+	}
+
 	/**
 	 * On génère un MNT aléatoire
 	 * La méthode de génération dépend de la classe du generator instancié
@@ -55,9 +72,18 @@ public class Map {
 	 * de la map
 	 */
 	public void pregenerate() {
-		int sizeX = (int) Math.floor(this.bound.getWidth()  / this.resolution);
-		int sizeY = (int) Math.floor(this.bound.getHeight() / this.resolution);
+		this.sizeX = (int) Math.floor(this.bound.getWidth()  / this.resolution);
+		this.sizeY = (int) Math.floor(this.bound.getHeight() / this.resolution);
 		this.setData(new double[sizeX][sizeY]);
+	}
+	
+	
+	/**
+	 * Exporte les données de l'instance map en cours dans un fichier .asc
+	 */
+	public void exportToASC(String nomFichier) {
+		ASCWriter ascWriter = new ASCWriter();
+		ascWriter.write(nomFichier, this);
 	}
 	
 	public IGeneratorStrategy getGenerator() {
@@ -74,5 +100,13 @@ public class Map {
 
 	public void setData(double[][] data) {
 		this.data = data;
+	}
+	
+	public int getSizeX() {
+		return sizeX;
+	}
+	
+	public int getSizeY() {
+		return sizeY;
 	}
 }
