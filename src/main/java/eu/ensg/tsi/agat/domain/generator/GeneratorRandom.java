@@ -1,4 +1,4 @@
-package eu.ensg.tsi.agat.domain;
+package eu.ensg.tsi.agat.domain.generator;
 
 public class GeneratorRandom implements IGeneratorStrategy {
 

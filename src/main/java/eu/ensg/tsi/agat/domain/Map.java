@@ -1,5 +1,6 @@
 package eu.ensg.tsi.agat.domain;
 
+import eu.ensg.tsi.agat.domain.generator.IGeneratorStrategy;
 import eu.ensg.tsi.agat.persistance.ASCWriter;
 import geotools.ShapefileReader;
 

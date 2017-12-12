@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Test;
 
+import eu.ensg.tsi.agat.domain.generator.GeneratorValueNoise;
 import junit.framework.TestCase;
 
 public class MapTest extends TestCase {

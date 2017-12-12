@@ -2,6 +2,8 @@ package eu.ensg.tsi.agat.domain;
 
 import org.junit.Test;
 
+import eu.ensg.tsi.agat.domain.generator.GeneratorSimplexNoise;
+
 public class GeneratorSimplexNoiseTest {
 
 	@Test

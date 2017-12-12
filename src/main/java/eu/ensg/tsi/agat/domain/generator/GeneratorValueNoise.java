@@ -1,4 +1,4 @@
-package eu.ensg.tsi.agat.domain;
+package eu.ensg.tsi.agat.domain.generator;
 
 /**
  * Un générateur de bruit par valeurs
