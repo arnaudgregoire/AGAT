@@ -1,7 +1,10 @@
-package eu.ensg.tsi.agat.domain;
+package eu.ensg.tsi.agat.domain.generator;
 
 import org.junit.Test;
 
+import eu.ensg.tsi.agat.domain.Bound;
+import eu.ensg.tsi.agat.domain.Map;
+import eu.ensg.tsi.agat.domain.Point;
 import eu.ensg.tsi.agat.domain.generator.GeneratorPerlinNoise;
 
 public class GeneratorPerlinNoiseTest {

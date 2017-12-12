@@ -1,47 +1,77 @@
 package eu.ensg.tsi.agat.persistance;
 
-import java.awt.image.BufferedImage;
-import java.awt.image.Raster;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.DataBuffer;
+import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
 
-import org.geotools.coverage.grid.GridCoverage2D;
+import javax.media.jai.RasterFactory;
+
+import org.geotools.coverage.CoverageFactoryFinder;
 import org.geotools.coverage.grid.GridCoverageFactory;
 import org.geotools.gce.geotiff.GeoTiffWriter;
-import org.geotools.geometry.jts.ReferencedEnvelope;
-import org.geotools.referencing.crs.DefaultGeographicCRS;
+import org.geotools.geometry.GeneralEnvelope;
+import org.geotools.referencing.CRS;
+import org.opengis.coverage.grid.GridCoverage;
+import org.opengis.referencing.FactoryException;
+import org.opengis.referencing.NoSuchAuthorityCodeException;
+import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
 import eu.ensg.tsi.agat.domain.Map;
 
 public class GeotiffWriter implements IWriter {
 
 	@Override
-	public void write(String nomFichier, Map map) {
-		String cheminAcces = "data/" + nomFichier;
+	public void write(String nomFichier, Map map)  {
+		String cheminAcces = "data/" + nomFichier + ".tiff";
 	    final File geotiff = new File(new StringBuilder().append(cheminAcces).toString());
-	    // write down a fake geotiff with non-standard CRS
-	    GridCoverageFactory factory = new GridCoverageFactory();
-	    	SampleModel sampleModel = new SampleModel(int dataType, int w, int h, int numBands);
-	    	DataBuffer(int dataType, int size);
-	    	 Point origin
-	    	Raster raster = new Raster(sampleModel, null, null);
-            BufferedImage bi = new BufferedImage(map.getSizeX(), map.getSizeY(), 0);
-            ReferencedEnvelope envelope = new ReferencedEnvelope(map.bound.getBottomLeft().getX(),
-            													 map.bound.getBottomRight().getX(),
-            													 map.bound.getBottomLeft().getY(),
-            													 map.bound.getUpperleft().getY(),
-            													 DefaultGeographicCRS.WGS84);
-            
-            GridCoverage2D test = factory.create("test", bi, envelope);
-            GeoTiffWriter writer;
-			try {
-				writer = new GeoTiffWriter(geotiff);
-	            writer.write(test, null);
-	            writer.dispose();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+
+        
+        WritableRaster raster = RasterFactory.createBandedRaster(DataBuffer.TYPE_FLOAT,
+                map.getSizeX(), map.getSizeY(), 1, null);
+        
+		for (int x=0; x<map.getSizeX(); x++) {
+			for (int y=0; y<map.getSizeY(); y++) {
+			raster.setSample(x, y, 0, map.getData()[x][y]);
 			}
+		}
+		Rectangle2D bounds = new Rectangle2D.Double(map.bound.getBottomLeft().getX(),
+        								map.bound.getBottomLeft().getY(),
+        								map.resolution *map.getSizeX(),
+                                        map.resolution * map.getSizeY());
+        
+        CoordinateReferenceSystem sourceCRS = null;
+		try {
+			sourceCRS = CRS.decode("EPSG:2154");
+		} catch (NoSuchAuthorityCodeException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (FactoryException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        	
+        
+        final GeneralEnvelope envelope = new GeneralEnvelope(sourceCRS);
+        
+        envelope.setRange(0, bounds.getMinX(), bounds.getMaxX());
+        envelope.setRange(1, bounds.getMinY(), bounds.getMaxY());
+        
+        GridCoverageFactory factory = CoverageFactoryFinder.getGridCoverageFactory(null);
+        
+        GridCoverage coverage = factory.create("My grayscale coverage", raster, envelope);
+        
+
+		try {
+			GeoTiffWriter writer = new GeoTiffWriter(geotiff);
+            writer.write(coverage, null);
+            writer.dispose();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 }

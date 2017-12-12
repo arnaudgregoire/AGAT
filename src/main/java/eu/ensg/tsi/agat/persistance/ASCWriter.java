@@ -53,8 +53,9 @@ public class ASCWriter implements IWriter {
 	 * @param map la map que l'on exporte
 	 */
 	private void addData(Map map) {
-		for (int i = 0; i < map.getData().length; i++) {
-			for (int j = 0; j < map.getData()[i].length; j++) {
+		
+		for (int j = 0; j < map.getSizeY(); j++) {
+			for (int i = 0; i < map.getSizeX(); i++) {
 				this.buffer += map.getData()[i][j] + " ";
 			}
 			this.buffer += "\n";

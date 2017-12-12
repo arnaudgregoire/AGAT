@@ -2,6 +2,7 @@ package eu.ensg.tsi.agat.domain;
 
 import eu.ensg.tsi.agat.domain.generator.IGeneratorStrategy;
 import eu.ensg.tsi.agat.persistance.ASCWriter;
+import eu.ensg.tsi.agat.persistance.GeotiffWriter;
 import geotools.ShapefileReader;
 
 public class Map {
@@ -85,6 +86,11 @@ public class Map {
 	public void exportToASC(String nomFichier) {
 		ASCWriter ascWriter = new ASCWriter();
 		ascWriter.write(nomFichier, this);
+	}
+	
+	public void exportToGeoTiff(String nomFichier) {
+		GeotiffWriter geoWriter = new GeotiffWriter();
+		geoWriter.write(nomFichier, this);
 	}
 	
 	public IGeneratorStrategy getGenerator() {
