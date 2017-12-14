@@ -1,4 +1,4 @@
-package eu.ensg.tsi.agat.domain.generator;
+package eu.ensg.tsi.agat.domain.generator.simplex;
 
 import java.util.Random;
 

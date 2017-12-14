@@ -1,8 +1,8 @@
 package eu.ensg.tsi.agat.domain.generator;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import eu.ensg.tsi.agat.domain.Bound;
 import eu.ensg.tsi.agat.domain.Map;

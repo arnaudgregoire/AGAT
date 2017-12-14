@@ -1,6 +1,6 @@
 package eu.ensg.tsi.agat.persistence;
 
-import org.junit.jupiter.api.Test;
+
 
 import eu.ensg.tsi.agat.domain.Bound;
 import eu.ensg.tsi.agat.domain.Map;
@@ -9,7 +9,7 @@ import eu.ensg.tsi.agat.domain.generator.GeneratorSimplexNoise;
 
 class GeotiffWriterTest {
 
-	@Test
+	@org.junit.Test
 	void test()  {
 		GeneratorSimplexNoise SimplexMaker = new GeneratorSimplexNoise();
 		Bound testBound = new Bound(new Point(0,0), new Point(100,100));

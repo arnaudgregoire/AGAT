@@ -3,7 +3,7 @@ package eu.ensg.tsi.agat.domain.generator;
 public class GeneratorFlat implements IGeneratorStrategy {
 
 	/**
-	 * Remplit le tableau data de la map avec uniquement des 0 et des 1
+	 * Remplit le tableau data de la map avec uniquement des 1
 	 */
 	public void process( double [][] data) {
 

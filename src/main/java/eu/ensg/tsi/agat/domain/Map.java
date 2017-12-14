@@ -13,7 +13,15 @@ public class Map {
 	private int sizeY;
 	public Bound bound; // Mon nom est Bound, James Bound
 	public int resolution;
+	public String crs; 
 	
+	/**
+	 * Importe dans un objet de classe Bound les coordonnées
+	 * du rectangle englobant un shapefile donné en entrée
+	 * @param nomFichier le nom du shapefile (il y a un dossier shp dans agat, mais l'utilisateur 
+	 * peut prendre son shp depuis n'importe quel endroit.)
+	 * @return
+	 */
 	public Bound importShapefileBound(String nomFichier) {
 		ShapefileReader shpReader = new ShapefileReader();
 		Bound shpBound = shpReader.getBoundofShapefile(nomFichier);
@@ -82,12 +90,21 @@ public class Map {
 	
 	/**
 	 * Exporte les données de l'instance map en cours dans un fichier .asc
+	 * Il sera ajouté dans le sous dossier data 
+	 * @param nomFichier le nom du fichier, l'extension .asc sera rajouté
+	 * TODO check si l'utilisateur a déja marqué l'extension .asc
 	 */
 	public void exportToASC(String nomFichier) {
 		ASCWriter ascWriter = new ASCWriter();
 		ascWriter.write(nomFichier, this);
 	}
 	
+	/**
+	 * Exporte les données de l'instance map en cours dans un fichier .tiff
+	 * Il sera ajouté dans le sous dossier data 
+	 * @param nomFichier le nom du fichier, l'extension .asc sera rajouté
+	 * TODO check si l'utilisateur a déja marqué l'extension .geotiff
+	 */
 	public void exportToGeoTiff(String nomFichier) {
 		GeotiffWriter geoWriter = new GeotiffWriter();
 		geoWriter.write(nomFichier, this);
