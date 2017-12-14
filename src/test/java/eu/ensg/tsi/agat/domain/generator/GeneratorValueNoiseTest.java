@@ -13,7 +13,7 @@ class GeneratorValueNoiseTest {
 	@Test
 	void test() {
 		GeneratorValueNoise valueMaker = new GeneratorValueNoise();
-		Bound testBound = new Bound(new Point(-100,-100), new Point(400,100));
+		Bound testBound = new Bound(new Point(0,0), new Point(100,100));
 		Map testCarte = new Map(valueMaker, testBound, 1);
 		testCarte.generate();	
 		testCarte.exportToASC("testValue");
