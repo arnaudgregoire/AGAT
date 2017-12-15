@@ -1,5 +1,6 @@
 package eu.ensg.tsi.agat.domain.generator;
 
+
 import org.junit.Test;
 
 import eu.ensg.tsi.agat.domain.Bound;

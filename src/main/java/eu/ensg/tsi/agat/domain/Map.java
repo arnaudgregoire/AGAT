@@ -14,34 +14,23 @@ public class Map {
 	public Bound bound; // Mon nom est Bound, James Bound
 	public int resolution;
 	public String crs; 
-	
-	/**
-	 * Importe dans un objet de classe Bound les coordonnées
-	 * du rectangle englobant un shapefile donné en entrée
-	 * @param nomFichier le nom du shapefile (il y a un dossier shp dans agat, mais l'utilisateur 
-	 * peut prendre son shp depuis n'importe quel endroit.)
-	 * @return
-	 */
-	public Bound importShapefileBound(String nomFichier) {
-		ShapefileReader shpReader = new ShapefileReader();
-		Bound shpBound = shpReader.getBoundofShapefile(nomFichier);
-		this.bound = shpBound;
-		return shpBound;
-	}
-	
+
 	/**
 	 * Un affichage console des valeurs du MNT sous la forme
 	 * [ 2.0  1.0 ]
 	 * [ 1.0  3.0 ]
 	 */
-	public void consoleDraw() {
+	@Override
+	public String toString() {
+		String string = "";
 		for (int i = 0; i < this.data.length; i++) {
-			System.out.print("[");
+			string+="[";
 			for (int j = 0; j < this.data[i].length; j++) {
-				System.out.print(" " + this.data[i][j] + " ");
+				string+=" " + this.data[i][j] + " ";
 			}
-			System.out.println("]");
+			string+="]";
 		}
+		return string;
 	}
 	
 	
@@ -63,7 +52,18 @@ public class Map {
 		this.generator = generator;
 		this.resolution = resolution;
 	}
-
+	
+	/**
+	 * On calcule la taille de la matrice data qui contiendra les données du MNT
+	 * Le nombre d'éléments de la matrice dépend de la résolution et de la largeur /hauteur
+	 * de la map
+	 */
+	public void pregenerate() {
+		this.sizeX = (int) Math.floor(this.bound.getWidth()  / this.resolution);
+		this.sizeY = (int) Math.floor(this.bound.getHeight() / this.resolution);
+		this.setData(new double[sizeX][sizeY]);
+	}
+	
 	/**
 	 * On génère un MNT aléatoire
 	 * La méthode de génération dépend de la classe du generator instancié
@@ -75,16 +75,19 @@ public class Map {
 		return this.data;
 	};
 	
-
+	
 	/**
-	 * On calcule la taille de la matrice data qui contiendra les données du MNT
-	 * Le nombre d'éléments de la matrice dépend de la résolution et de la largeur /hauteur
-	 * de la map
+	 * Importe dans un objet de classe Bound les coordonnées
+	 * du rectangle englobant un shapefile donné en entrée
+	 * @param nomFichier le nom du shapefile (il y a un dossier shp dans agat, mais l'utilisateur 
+	 * peut prendre son shp depuis n'importe quel endroit.)
+	 * @return
 	 */
-	public void pregenerate() {
-		this.sizeX = (int) Math.floor(this.bound.getWidth()  / this.resolution);
-		this.sizeY = (int) Math.floor(this.bound.getHeight() / this.resolution);
-		this.setData(new double[sizeX][sizeY]);
+	public Bound importShapefileBound(String nomFichier) {
+		ShapefileReader shpReader = new ShapefileReader();
+		Bound shpBound = shpReader.getBoundofShapefile(nomFichier);
+		this.bound = shpBound;
+		return shpBound;
 	}
 	
 	
@@ -110,13 +113,6 @@ public class Map {
 		geoWriter.write(nomFichier, this);
 	}
 	
-	public IGeneratorStrategy getGenerator() {
-		return generator;
-	}
-
-	public void setGenerator(IGeneratorStrategy generator) {
-		this.generator = generator;
-	}
 
 	public double[][] getData() {
 		return data;

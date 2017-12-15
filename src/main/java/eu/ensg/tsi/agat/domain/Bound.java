@@ -71,27 +71,19 @@ public class Bound {
 	public Point getUpperleft() {
 		return upperleft;
 	}
-	public void setUpperleft(Point upperleft) {
-		this.upperleft = upperleft;
-	}
+
 	public Point getBottomLeft() {
 		return bottomLeft;
 	}
-	public void setBottomLeft(Point bottomLeft) {
-		this.bottomLeft = bottomLeft;
-	}
+
 	public Point getBottomRight() {
 		return bottomRight;
 	}
-	public void setBottomRight(Point bottomRight) {
-		this.bottomRight = bottomRight;
-	}
+
 	public Point getUpperRight() {
 		return upperRight;
 	}
-	public void setUpperRight(Point upperRight) {
-		this.upperRight = upperRight;
-	}
+
 	public double getWidth() {
 		return width;
 	}
