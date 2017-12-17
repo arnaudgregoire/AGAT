@@ -7,10 +7,10 @@ import eu.ensg.tsi.agat.domain.Map;
 import eu.ensg.tsi.agat.domain.Point;
 import eu.ensg.tsi.agat.domain.generator.GeneratorSimplexNoise;
 
-class GeotiffWriterTest {
+public class GeotiffWriterTest {
 
 	@org.junit.Test
-	void test()  {
+	public void test()  {
 		GeneratorSimplexNoise SimplexMaker = new GeneratorSimplexNoise();
 		Bound testBound = new Bound(new Point(0,0), new Point(100,100));
 		Map testCarte = new Map(SimplexMaker, testBound, 1);

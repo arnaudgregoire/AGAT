@@ -1,22 +1,27 @@
 package eu.ensg.tsi.agat.domain.generator;
 
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.Test;
 
-import eu.ensg.tsi.agat.domain.Bound;
 import eu.ensg.tsi.agat.domain.Map;
-import eu.ensg.tsi.agat.domain.Point;
-import eu.ensg.tsi.agat.domain.generator.GeneratorSimplexNoise;
 
 public class GeneratorSimplexNoiseTest {
 
 	@Test
-	public void test() {
-		GeneratorSimplexNoise SimplexMaker = new GeneratorSimplexNoise();
-		Bound testBound = new Bound(new Point(0,0), new Point(100,100));
-		Map testCarte = new Map(SimplexMaker, testBound, 1);
-		testCarte.generate();	
-		testCarte.exportToASC("Simplextest");
-		testCarte.exportToGeoTiff("Simplextest");
+	public void testGenerator() {
+		Map map = new Map("simplex");
+		map.generate();	
+		double somme = 0;
+		for (int i = 0; i < map.getData().length; i++) {
+			for (int j = 0; j < map.getData()[0].length; j++) {
+				assertEquals(true, map.getData()[i][j]>=0);
+				assertEquals(true, map.getData()[i][j]<=1);
+				somme += map.getData()[i][j];
+			}
+		}
+		assertNotEquals(0, (int) somme);
 	}
 
 }

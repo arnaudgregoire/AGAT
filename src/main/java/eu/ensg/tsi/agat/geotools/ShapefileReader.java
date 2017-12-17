@@ -1,4 +1,4 @@
-package geotools;
+package eu.ensg.tsi.agat.geotools;
 
 import java.io.File;
 import java.net.URL;

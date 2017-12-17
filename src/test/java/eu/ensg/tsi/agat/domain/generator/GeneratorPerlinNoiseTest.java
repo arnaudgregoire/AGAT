@@ -1,21 +1,26 @@
 package eu.ensg.tsi.agat.domain.generator;
 
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.Test;
 
-import eu.ensg.tsi.agat.domain.Bound;
 import eu.ensg.tsi.agat.domain.Map;
-import eu.ensg.tsi.agat.domain.Point;
-import eu.ensg.tsi.agat.domain.generator.GeneratorPerlinNoise;
 
 public class GeneratorPerlinNoiseTest {
 
 	@Test
 	public void testGenerator() {
-		GeneratorPerlinNoise perlinMaker = new GeneratorPerlinNoise();
-		Bound testBound = new Bound(new Point(0,0), new Point(100,100));
-		Map testCarte = new Map(perlinMaker, testBound, 1);
-		testCarte.generate();	
-		testCarte.exportToASC("Perlintest");
+		Map map = new Map("perlin");
+		map.generate();	
+		double somme = 0;
+		for (int i = 0; i < map.getData().length; i++) {
+			for (int j = 0; j < map.getData()[0].length; j++) {
+				assertEquals(true, map.getData()[i][j]>=0);
+				assertEquals(true, map.getData()[i][j]<=1);
+				somme += map.getData()[i][j];
+			}
+		}
+		assertNotEquals(0, (int) somme);
 	}
-
 }

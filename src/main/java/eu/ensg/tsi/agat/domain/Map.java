@@ -1,9 +1,10 @@
 package eu.ensg.tsi.agat.domain;
 
 import eu.ensg.tsi.agat.domain.generator.IGeneratorStrategy;
+import eu.ensg.tsi.agat.geotools.ShapefileReader;
 import eu.ensg.tsi.agat.persistance.ASCWriter;
 import eu.ensg.tsi.agat.persistance.GeotiffWriter;
-import geotools.ShapefileReader;
+import exceptions.StrategyNotFoundException;
 
 public class Map {
 
@@ -47,11 +48,46 @@ public class Map {
 		this.resolution = resolution;
 	}
 
-	
+	/**
+	 * Le constructeur avec une emprise par défaut 
+	 * @param generator Une instanciation d'une classe implémentant IGeneratorStrategy
+	 * @param resolution la résolution souhaité
+	 * l'emprise par défaut est 0/0 -> 100/100
+	 */
 	public Map(IGeneratorStrategy generator, int resolution) {
 		this.generator = generator;
 		this.resolution = resolution;
+		this.bound = new Bound(new Point(0,0), new Point(100,100));
 	}
+	
+	/**
+	 * Le constructeur avec une emprise par défaut et une resolution par défaut
+	 * @param generator Une instanciation d'une classe implémentant IGeneratorStrategy
+	 * @param resolution la résolution par défaut qui est fixé à 1
+	 * l'emprise par défaut est 0/0 -> 100/100
+	 */
+	public Map(IGeneratorStrategy generator) {
+		this.generator = generator;
+		this.resolution = 1;
+		this.bound = new Bound(new Point(0,0), new Point(100,100));
+	}
+	
+	
+	/**
+	 * Le constructeur le plus user-friendly possible avec juste le nom du générateur à rentrer
+	 * la résolution et l'emprise sont générés par défaut
+	 * résolution 1 et emprise (0,0) -> (100,100)
+	 * Les noms de générateur pris en compte sont : 
+	 * flat, perlin, random, simplex, value
+	 * @param nomStrategy
+	 * @throws StrategyNotFoundException
+	 */
+	public Map(String nomStrategy) throws StrategyNotFoundException {
+		GeneratorFactory factory = new GeneratorFactory();
+		this.generator = factory.create(nomStrategy);
+		this.resolution = 1;
+		this.bound = new Bound( new Point(0,0), new Point(100,100));
+	};
 	
 	/**
 	 * On calcule la taille de la matrice data qui contiendra les données du MNT

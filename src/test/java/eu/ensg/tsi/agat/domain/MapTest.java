@@ -1,31 +1,82 @@
 package eu.ensg.tsi.agat.domain;
 
-import static org.junit.Assert.assertNotEquals;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 import java.io.File;
 
-import org.junit.Test;
-
 import eu.ensg.tsi.agat.domain.generator.GeneratorFlat;
-import junit.framework.TestCase;
-
-public class MapTest extends TestCase {
 
 
+public class MapTest {
+
+	@Test
+	public void testconstructorTwoArg(){
+		GeneratorFlat flat = new GeneratorFlat();
+		Map testMap = new Map(flat, 1);
+		assertEquals(0,(int) testMap.bound.getBottomLeft().getX());
+		assertEquals(0,(int) testMap.bound.getBottomLeft().getY());		
+		assertEquals(100,(int) testMap.bound.getBottomRight().getX());
+		assertEquals(0,(int) testMap.bound.getBottomRight().getY());		
+		assertEquals(0,(int) testMap.bound.getUpperleft().getX());
+		assertEquals(100,(int) testMap.bound.getUpperleft().getY());	
+		assertEquals(100,(int) testMap.bound.getUpperRight().getX());
+		assertEquals(100,(int) testMap.bound.getUpperRight().getY());
+	}
 	
+	@Test
+	public void testconstructorOneArg(){
+		GeneratorFlat flat = new GeneratorFlat();
+		Map testMap = new Map(flat);
+		assertEquals(0,(int) testMap.bound.getBottomLeft().getX());
+		assertEquals(0,(int) testMap.bound.getBottomLeft().getY());		
+		assertEquals(100,(int) testMap.bound.getBottomRight().getX());
+		assertEquals(0,(int) testMap.bound.getBottomRight().getY());		
+		assertEquals(0,(int) testMap.bound.getUpperleft().getX());
+		assertEquals(100,(int) testMap.bound.getUpperleft().getY());	
+		assertEquals(100,(int) testMap.bound.getUpperRight().getX());
+		assertEquals(100,(int) testMap.bound.getUpperRight().getY());
+	}
+	
+	@Test
+	public void testConstructorUserFriendly(){
+		Map testMap = new Map("flat");
+		testMap = new Map("random");
+		testMap = new Map("perlin");
+		testMap = new Map("value");
+		testMap = new Map("simplex");
+		assertEquals(0,(int) testMap.bound.getBottomLeft().getX());
+		assertEquals(0,(int) testMap.bound.getBottomLeft().getY());		
+		assertEquals(100,(int) testMap.bound.getBottomRight().getX());
+		assertEquals(0,(int) testMap.bound.getBottomRight().getY());		
+		assertEquals(0,(int) testMap.bound.getUpperleft().getX());
+		assertEquals(100,(int) testMap.bound.getUpperleft().getY());	
+		assertEquals(100,(int) testMap.bound.getUpperRight().getX());
+		assertEquals(100,(int) testMap.bound.getUpperRight().getY());
+		int nbExceptions = 0;
+		try {
+			testMap = new Map("un mauvais nom de générateur !");
+		}
+		catch(Exception e) {
+			nbExceptions ++;
+		}
+		assertEquals(1, nbExceptions);
+	}
+	
+
 	@Test
 	public void testimportShapefileBound() {
 		GeneratorFlat flat = new GeneratorFlat();
 		Map testMap = new Map(flat, 1);
 		testMap.importShapefileBound("shp/buffer_dissolve_paris.shp");
-		assertNotEquals(Double.NaN, testMap.bound.getBottomLeft().getX());	
-		assertNotEquals(Double.NaN, testMap.bound.getBottomLeft().getY());	
-		assertNotEquals(Double.NaN, testMap.bound.getBottomRight().getX());	
-		assertNotEquals(Double.NaN, testMap.bound.getBottomRight().getY());	
-		assertNotEquals(Double.NaN, testMap.bound.getUpperleft().getX());	
-		assertNotEquals(Double.NaN, testMap.bound.getUpperleft().getY());	
-		assertNotEquals(Double.NaN, testMap.bound.getUpperRight().getX());	
-		assertNotEquals(Double.NaN, testMap.bound.getUpperRight().getY());	
+		assertNotSame(Double.NaN, testMap.bound.getBottomLeft().getX());	
+		assertNotSame(Double.NaN, testMap.bound.getBottomLeft().getY());	
+		assertNotSame(Double.NaN, testMap.bound.getBottomRight().getX());	
+		assertNotSame(Double.NaN, testMap.bound.getBottomRight().getY());	
+		assertNotSame(Double.NaN, testMap.bound.getUpperleft().getX());	
+		assertNotSame(Double.NaN, testMap.bound.getUpperleft().getY());	
+		assertNotSame(Double.NaN, testMap.bound.getUpperRight().getX());	
+		assertNotSame(Double.NaN, testMap.bound.getUpperRight().getY());	
 	}
 	
 	@Test
