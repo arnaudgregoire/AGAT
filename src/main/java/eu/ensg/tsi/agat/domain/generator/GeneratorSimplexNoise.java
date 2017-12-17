@@ -1,6 +1,7 @@
 package eu.ensg.tsi.agat.domain.generator;
 
 import eu.ensg.tsi.agat.domain.generator.simplex.SimplexNoise;
+import eu.ensg.tsi.agat.domain.utility.Round;
 
 /**
  * Le générateur de map par bruit de simplex
@@ -46,7 +47,7 @@ public class GeneratorSimplexNoise implements IGeneratorStrategy {
 	    
 	    for(int i=0;i<data.length;i++){
 	        for(int j=0;j<data[0].length;j++){
-	            data[i][j]=simplexNoise.getNoise(i,j);
+	            data[i][j]=Round.round2Dec(simplexNoise.getNoise(i,j));
 	            moyenne += data[i][j];
 	        }
 	    }

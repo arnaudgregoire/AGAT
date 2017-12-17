@@ -1,5 +1,6 @@
 package eu.ensg.tsi.agat.domain.generator;
 
+import eu.ensg.tsi.agat.domain.utility.Round;
 
 /**
  * un générateur de terrains totalement aléatoire
@@ -14,7 +15,7 @@ public class GeneratorRandom implements IGeneratorStrategy {
 		
 	    for(int i=0; i<data.length; i++) {
 	        for(int j=0; j<data[i].length; j++) {
-	           data[i][j] = Math.floor(Math.random() * 10)/10;
+	           data[i][j] = Round.round2Dec(Math.floor(Math.random() * 10)/10);
 	        }
 	    }
 	}

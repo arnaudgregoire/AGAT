@@ -1,5 +1,7 @@
 package eu.ensg.tsi.agat.domain.generator;
 
+import eu.ensg.tsi.agat.domain.utility.Round;
+
 /**
  * Un générateur de bruit par valeurs
  * inspiré du tutoriel "Bruits et nombres aléatoires cohérents"
@@ -55,7 +57,7 @@ public class GeneratorValueNoise implements IGeneratorStrategy {
 	    for(int i = 0; i < data.length ; i++)
 	    {
 	    	for (int j = 0; j < data[0].length; j++) {
-	    		data[i][j] =Math.round(valueNoise(i, j) * 100.0) / 100.0 ;
+	    		data[i][j] =Round.round2Dec(valueNoise(i, j)) ;
 			}
 	    }
 	}

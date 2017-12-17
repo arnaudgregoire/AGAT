@@ -11,10 +11,8 @@ public class GeneratorPerlinNoise implements IGeneratorStrategy {
 
 	public void process(double[][] data) {
 		for (int i = 0; i < data.length; i++) {
-			for (int j = 0; j < data.length; j++) {
-                double sampleY = (Math.floor(i/data[0].length)) / res;
-                double sampleX = (i%data.length) / 10.0;
-				data[i][j] = (double) get2DPerlinNoiseValue(sampleX,sampleY);
+			for (int j = 0; j < data[0].length; j++) {
+				data[i][j] = (double) (get2DPerlinNoiseValue(i,j) +1)/2;
 			}
 		}
 
