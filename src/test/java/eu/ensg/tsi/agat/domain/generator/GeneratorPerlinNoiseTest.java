@@ -1,7 +1,6 @@
 package eu.ensg.tsi.agat.domain.generator;
 
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 

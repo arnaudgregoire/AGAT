@@ -47,7 +47,7 @@ public class GeneratorSimplexNoise implements IGeneratorStrategy {
 	    
 	    for(int i=0;i<data.length;i++){
 	        for(int j=0;j<data[0].length;j++){
-	            data[i][j]=Round.round2Dec(simplexNoise.getNoise(i,j));
+	            data[i][j]=simplexNoise.getNoise(i,j);
 	            moyenne += data[i][j];
 	        }
 	    }
@@ -64,9 +64,10 @@ public class GeneratorSimplexNoise implements IGeneratorStrategy {
 	            if(data[i][j]<=0) {
 	            	data[i][j] = 0.0;
 	            }
-	            
+	            data[i][j] = Round.round2Dec(data[i][j]);
 	        }
 	    }
+	    
 	}
 
 }

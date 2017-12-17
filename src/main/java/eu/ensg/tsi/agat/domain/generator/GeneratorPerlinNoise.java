@@ -1,5 +1,7 @@
 package eu.ensg.tsi.agat.domain.generator;
 
+import eu.ensg.tsi.agat.domain.utility.Round;
+
 public class GeneratorPerlinNoise implements IGeneratorStrategy {
 
 	private double res;
@@ -12,7 +14,7 @@ public class GeneratorPerlinNoise implements IGeneratorStrategy {
 	public void process(double[][] data) {
 		for (int i = 0; i < data.length; i++) {
 			for (int j = 0; j < data[0].length; j++) {
-				data[i][j] = (double) (get2DPerlinNoiseValue(i,j) +1)/2;
+				data[i][j] =(double) Round.round2Dec((get2DPerlinNoiseValue(i,j) +1)/2);
 			}
 		}
 
