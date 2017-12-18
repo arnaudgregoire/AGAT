@@ -1,22 +1,38 @@
 package eu.ensg.tsi.agat.persistence;
+import static org.junit.Assert.*;
 
+import org.junit.Test;
 
-
-import eu.ensg.tsi.agat.domain.Bound;
 import eu.ensg.tsi.agat.domain.Map;
-import eu.ensg.tsi.agat.domain.Point;
-import eu.ensg.tsi.agat.domain.generator.GeneratorSimplexNoise;
 
 public class GeotiffWriterTest {
 
-	@org.junit.Test
-	public void test()  {
-		GeneratorSimplexNoise SimplexMaker = new GeneratorSimplexNoise();
-		Bound testBound = new Bound(new Point(0,0), new Point(100,100));
-		Map testCarte = new Map(SimplexMaker, testBound, 1);
+	@Test
+	public void testexportASC()  {
+		Map testCarte = new Map("value");
 		testCarte.generate();	
-		testCarte.exportToASC("testValue");
-		testCarte.exportToGeoTiff("testValue.tiff");
+		int nbExceptions = 0;
+		try {
+			testCarte.exportToASC("testValue");
+		}
+		catch(Exception e) {
+			nbExceptions ++;
+		}
+		assertEquals(0, nbExceptions);
+	}
+	
+	@Test
+	public void testexportgeotiff()  {
+		Map testCarte = new Map("value");
+		testCarte.generate();	
+		int nbExceptions = 0;
+		try {
+			testCarte.exportToGeoTiff("testValue");
+		}
+		catch(Exception e) {
+			nbExceptions ++;
+		}
+		assertEquals(0, nbExceptions);
 	}
 
 }

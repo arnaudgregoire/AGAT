@@ -3,11 +3,11 @@
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![Build Status](https://travis-ci.org/arnaudgregoire/AGAT.svg?branch=master)](https://travis-ci.org/arnaudgregoire/AGAT)
 
-Algorithmes de GÃ©nÃ©ration AlÃ©atoires de Terrains
+Algorithmes de Génération Aléatoires de Terrains
 
 ## Premiers pas
 
-Les instructions suivantes vous donneront un ordre d'idÃ©e des capacitÃ©s de la librairie AGAT et de comment les utiliser.
+Les instructions suivantes vous donneront un ordre d'idée des capacités de la librairie AGAT et de comment les utiliser.
 
 ### Premier MNT
 
@@ -17,16 +17,17 @@ map.generate();
 map.exportToGeoTiff("testSimplex");
 ```
 
-Ce script crÃ©Ã© un MNT puis le stocke dans le fichier ./data/testSimplex.tiff.  
+Ce script créé un MNT puis le stocke dans le fichier ./data/testSimplex.tiff.  
 
-### DiffÃ©rents types de gÃ©nÃ©rations
+### Différents types de générations
 
-DiffÃ©rents mots-clÃ©s correspodant Ã  diffÃ©rents types de gÃ©nÃ©rations peuvent Ãªtre utilisÃ©s. 
+Différents mots-clés correspodant Ã  différents types de générations peuvent Ãªtre utilisés. 
  
   - "simplex" : bruit de simplex
   - "perlin" : bruit de Perlin
   - "random" : bruit blanc
   - "value" : bruit de valeurs
+  - "flat" : valeurs uniformes
 
 ## Exporter sa map
 
@@ -39,7 +40,7 @@ map.exportToGeoTiff("testSimplex");
 map.exportToASC("testSimplex");
 ```
 
-Ce script crÃ©Ã© un MNT et l'enregistre 2 fois dans le sous dossier data:
+Ce script créé un MNT et l'enregistre 2 fois dans le sous dossier data:
  
   - une premiÃ¨re fois au format Geotiff
   - une seconde fois au format ASC
@@ -56,7 +57,7 @@ Give an example
 ## Built With
 
 * [Geotools](http://www.dropwizard.io/1.0.2/docs/) - Boite Ã  outils SIG 
-* [Maven](http://www.geotools.org/) - Gestion des dÃ©pendances
+* [Maven](http://www.geotools.org/) - Gestion des dépendances
 
 
 ## License

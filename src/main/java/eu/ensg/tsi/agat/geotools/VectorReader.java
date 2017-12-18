@@ -14,24 +14,27 @@ import org.geotools.geometry.jts.ReferencedEnvelope;
 import eu.ensg.tsi.agat.domain.Bound;
 import eu.ensg.tsi.agat.domain.Point;
 
-public class ShapefileReader {
-
-	public Bound getBoundofShapefile( String shpFilePath) {
+public class VectorReader implements IReader {
+	
+	@Override
+	public Bound getBoundofShapefile(String filePath) {
 		double left   = Double.NaN; 
 		double right  = Double.NaN; 
 		double top    = Double.NaN; 
 		double bottom = Double.NaN; 
-		File file = new File(shpFilePath);
+		File file = new File(filePath);
 		Map<String, URL> map = new HashMap<String, URL>();      
+		
 		try {
 			map.put("url", file.toURI().toURL());
 			DataStore dataStore = DataStoreFinder.getDataStore(map);
 			SimpleFeatureSource featureSource = dataStore.getFeatureSource(dataStore.getTypeNames()[0]);
 			SimpleFeatureCollection collection = featureSource.getFeatures();
 			ReferencedEnvelope env = collection.getBounds();
-			left = env.getMinX();
-			right = env.getMaxX();
-			top = env.getMaxY();
+			
+			left   = env.getMinX();
+			right  = env.getMaxX();
+			top    = env.getMaxY();
 			bottom = env.getMinY();
 			
 		} catch (Exception e) {

@@ -1,7 +1,8 @@
 package eu.ensg.tsi.agat.domain;
 
 import eu.ensg.tsi.agat.domain.generator.IGeneratorStrategy;
-import eu.ensg.tsi.agat.geotools.ShapefileReader;
+import eu.ensg.tsi.agat.geotools.RasterReader;
+import eu.ensg.tsi.agat.geotools.VectorReader;
 import eu.ensg.tsi.agat.persistance.ASCWriter;
 import eu.ensg.tsi.agat.persistance.GeotiffWriter;
 import exceptions.StrategyNotFoundException;
@@ -14,7 +15,7 @@ public class Map {
 	private int sizeY;
 	public Bound bound; // Mon nom est Bound, James Bound
 	public int resolution;
-	public String crs; 
+	public int crs; 
 
 	/**
 	 * Un affichage console des valeurs du MNT sous la forme
@@ -37,47 +38,53 @@ public class Map {
 	
 	/**
 	 * Le constructeur bas niveau de la class Map
-	 * @param generator Une instanciation d'une classe implÃ©mentant IGeneratorStrategy
+	 * @param generator Une instanciation d'une classe implémentant IGeneratorStrategy
 	 * @param bound Les bords de la map
-	 * @param resolution la rÃ©solution souhaitÃ©
+	 * @param resolution la résolution souhaité
+	 * @param crs Le numéro EPSG de la projection cartographique choisi
 	 */
-	public Map(IGeneratorStrategy generator, Bound bound, int resolution) {
-		super();
-		this.generator = generator;
-		this.bound = bound;
+	public Map(String nomStrategy, int resolution, Bound bound, int crs) throws StrategyNotFoundException {
+		GeneratorFactory factory = new GeneratorFactory();
+		this.generator = factory.create(nomStrategy);
 		this.resolution = resolution;
-	}
+		this.bound = bound;
+		this.crs = crs;
+	};
 
 	/**
-	 * Le constructeur avec une emprise par dÃ©faut 
-	 * @param generator Une instanciation d'une classe implÃ©mentant IGeneratorStrategy
-	 * @param resolution la rÃ©solution souhaitÃ©
-	 * l'emprise par dÃ©faut est 0/0 -> 100/100
+	 * Le constructeur bas niveau de la class Map
+	 * @param generator Une instanciation d'une classe implémentant IGeneratorStrategy
+	 * @param bound Les bords de la map
+	 * @param resolution la résolution souhaité
 	 */
-	public Map(IGeneratorStrategy generator, int resolution) {
-		this.generator = generator;
+	public Map(String nomStrategy, int resolution, Bound bound) throws StrategyNotFoundException {
+		GeneratorFactory factory = new GeneratorFactory();
+		this.generator = factory.create(nomStrategy);
+		this.resolution = resolution;
+		this.bound = bound;
+		this.crs = 2154;
+	};
+	
+	/**
+	 * Le constructeur avec une emprise par défaut 
+	 * @param generator Une instanciation d'une classe implémentant IGeneratorStrategy
+	 * @param resolution la résolution souhaité
+	 * l'emprise par défaut est 0/0 -> 100/100
+	 */
+	public Map(String nomStrategy, int resolution) throws StrategyNotFoundException {
+		GeneratorFactory factory = new GeneratorFactory();
+		this.generator = factory.create(nomStrategy);
 		this.resolution = resolution;
 		this.bound = new Bound(new Point(0,0), new Point(100,100));
-	}
+		this.crs = 2154;
+	};
+
 	
 	/**
-	 * Le constructeur avec une emprise par dÃ©faut et une resolution par dÃ©faut
-	 * @param generator Une instanciation d'une classe implÃ©mentant IGeneratorStrategy
-	 * @param resolution la rÃ©solution par dÃ©faut qui est fixÃ© Ã  1
-	 * l'emprise par dÃ©faut est 0/0 -> 100/100
-	 */
-	public Map(IGeneratorStrategy generator) {
-		this.generator = generator;
-		this.resolution = 1;
-		this.bound = new Bound(new Point(0,0), new Point(100,100));
-	}
-	
-	
-	/**
-	 * Le constructeur le plus user-friendly possible avec juste le nom du gÃ©nÃ©rateur Ã  rentrer
-	 * la rÃ©solution et l'emprise sont gÃ©nÃ©rÃ©s par dÃ©faut
-	 * rÃ©solution 1 et emprise (0,0) -> (100,100)
-	 * Les noms de gÃ©nÃ©rateur pris en compte sont : 
+	 * Le constructeur le plus user-friendly possible avec juste le nom du générateur Ã  rentrer
+	 * la résolution et l'emprise sont générés par défaut
+	 * résolution 1 et emprise (0,0) -> (100,100)
+	 * Les noms de générateur pris en compte sont : 
 	 * flat, perlin, random, simplex, value
 	 * @param nomStrategy
 	 * @throws StrategyNotFoundException
@@ -87,11 +94,12 @@ public class Map {
 		this.generator = factory.create(nomStrategy);
 		this.resolution = 1;
 		this.bound = new Bound( new Point(0,0), new Point(100,100));
+		this.crs = 2154;
 	};
 	
 	/**
-	 * On calcule la taille de la matrice data qui contiendra les donnÃ©es du MNT
-	 * Le nombre d'Ã©lÃ©ments de la matrice dÃ©pend de la rÃ©solution et de la largeur /hauteur
+	 * On calcule la taille de la matrice data qui contiendra les données du MNT
+	 * Le nombre d'éléments de la matrice dépend de la résolution et de la largeur /hauteur
 	 * de la map
 	 */
 	public void pregenerate() {
@@ -101,9 +109,9 @@ public class Map {
 	}
 	
 	/**
-	 * On gÃ©nÃ¨re un MNT alÃ©atoire
-	 * La mÃ©thode de gÃ©nÃ©ration dÃ©pend de la classe du generator instanciÃ©
-	 * @return le MNT gÃ©nÃ©rÃ© sous forme de matrice double[][]
+	 * On génÃ¨re un MNT aléatoire
+	 * La méthode de génération dépend de la classe du generator instancié
+	 * @return le MNT généré sous forme de matrice double[][]
 	 */
 	public double[][] generate(){
 		this.pregenerate();
@@ -113,25 +121,37 @@ public class Map {
 	
 	
 	/**
-	 * Importe dans un objet de classe Bound les coordonnÃ©es
-	 * du rectangle englobant un shapefile donnÃ© en entrÃ©e
+	 * Importe dans un objet de classe Bound les coordonnées
+	 * du rectangle englobant un shapefile donné en entrée
 	 * @param nomFichier le nom du shapefile (il y a un dossier shp dans agat, mais l'utilisateur 
 	 * peut prendre son shp depuis n'importe quel endroit.)
 	 * @return
 	 */
 	public Bound importShapefileBound(String nomFichier) {
-		ShapefileReader shpReader = new ShapefileReader();
+		VectorReader shpReader = new VectorReader();
 		Bound shpBound = shpReader.getBoundofShapefile(nomFichier);
 		this.bound = shpBound;
 		return shpBound;
 	}
 	
+	/**
+	 * Importe dans un objet de classe Bound les coordonnées
+	 * du rectangle englobant un shapefile donné en entrée
+	 * @param nomFichier le nom du raster 
+	 * @return
+	 */
+	public Bound importRasterBound(String nomFichier) {
+		RasterReader shpReader = new RasterReader();
+		Bound shpBound = shpReader.getBoundofShapefile(nomFichier);
+		this.bound = shpBound;
+		return shpBound;
+	}
 	
 	/**
-	 * Exporte les donnÃ©es de l'instance map en cours dans un fichier .asc
-	 * Il sera ajoutÃ© dans le sous dossier data 
-	 * @param nomFichier le nom du fichier, l'extension .asc sera rajoutÃ©
-	 * TODO check si l'utilisateur a dÃ©ja marquÃ© l'extension .asc
+	 * Exporte les données de l'instance map en cours dans un fichier .asc
+	 * Il sera ajouté dans le sous dossier data 
+	 * @param nomFichier le nom du fichier, l'extension .asc sera rajouté
+	 * TODO check si l'utilisateur a déja marqué l'extension .asc
 	 */
 	public void exportToASC(String nomFichier) {
 		ASCWriter ascWriter = new ASCWriter();
@@ -139,10 +159,10 @@ public class Map {
 	}
 	
 	/**
-	 * Exporte les donnÃ©es de l'instance map en cours dans un fichier .tiff
-	 * Il sera ajoutÃ© dans le sous dossier data 
-	 * @param nomFichier le nom du fichier, l'extension .asc sera rajoutÃ©
-	 * TODO check si l'utilisateur a dÃ©ja marquÃ© l'extension .geotiff
+	 * Exporte les données de l'instance map en cours dans un fichier .tiff
+	 * Il sera ajouté dans le sous dossier data 
+	 * @param nomFichier le nom du fichier, l'extension .asc sera rajouté
+	 * TODO check si l'utilisateur a déja marqué l'extension .geotiff
 	 */
 	public void exportToGeoTiff(String nomFichier) {
 		GeotiffWriter geoWriter = new GeotiffWriter();

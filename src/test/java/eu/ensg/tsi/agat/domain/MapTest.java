@@ -1,19 +1,19 @@
 package eu.ensg.tsi.agat.domain;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 
 import java.io.File;
 
-import eu.ensg.tsi.agat.domain.generator.GeneratorFlat;
+import org.junit.Test;
 
 
 public class MapTest {
 
 	@Test
 	public void testconstructorTwoArg(){
-		GeneratorFlat flat = new GeneratorFlat();
-		Map testMap = new Map(flat, 1);
+		Map testMap = new Map("flat");
 		assertEquals(0,(int) testMap.bound.getBottomLeft().getX());
 		assertEquals(0,(int) testMap.bound.getBottomLeft().getY());		
 		assertEquals(100,(int) testMap.bound.getBottomRight().getX());
@@ -26,8 +26,7 @@ public class MapTest {
 	
 	@Test
 	public void testconstructorOneArg(){
-		GeneratorFlat flat = new GeneratorFlat();
-		Map testMap = new Map(flat);
+		Map testMap = new Map("flat");
 		assertEquals(0,(int) testMap.bound.getBottomLeft().getX());
 		assertEquals(0,(int) testMap.bound.getBottomLeft().getY());		
 		assertEquals(100,(int) testMap.bound.getBottomRight().getX());
@@ -66,8 +65,7 @@ public class MapTest {
 
 	@Test
 	public void testimportShapefileBound() {
-		GeneratorFlat flat = new GeneratorFlat();
-		Map testMap = new Map(flat, 1);
+		Map testMap = new Map("flat");
 		testMap.importShapefileBound("shp/buffer_dissolve_paris.shp");
 		assertNotSame(Double.NaN, testMap.bound.getBottomLeft().getX());	
 		assertNotSame(Double.NaN, testMap.bound.getBottomLeft().getY());	
@@ -81,8 +79,7 @@ public class MapTest {
 	
 	@Test
 	public void testtostring(){
-		GeneratorFlat flat = new GeneratorFlat();
-		Map testMap = new Map(flat, 1);
+		Map testMap = new Map("flat");
 		double [][] datatest= { {0,12}, {4,154}};
 		testMap.setData(datatest);
 		assertEquals("[ 0.0  12.0 ][ 4.0  154.0 ]",testMap.toString());
@@ -90,22 +87,16 @@ public class MapTest {
 	
 	@Test
 	public void testpregenerate(){
-		GeneratorFlat flat = new GeneratorFlat();
-		Bound bound = new Bound(new Point(0,0),new Point(10,10));
-		int resolution = 1;
-		Map testMap = new Map(flat, bound, resolution);
+		Map testMap = new Map("flat");
 		testMap.pregenerate();
 		assertNotNull(testMap.getData());
-		assertEquals(testMap.getSizeX(), 10);
-		assertEquals(testMap.getSizeY(), 10);
+		assertEquals(testMap.getSizeX(), 100);
+		assertEquals(testMap.getSizeY(), 100);
 	}
 	
 	@Test
 	public void testgenerate(){
-		GeneratorFlat flat = new GeneratorFlat();
-		Bound bound = new Bound(new Point(0,0),new Point(10,10));
-		int resolution = 1;
-		Map testMap = new Map(flat, bound, resolution);
+		Map testMap = new Map("flat");
 		assertNotNull(testMap);		
 		testMap.pregenerate();
 		testMap.generate();
@@ -118,10 +109,7 @@ public class MapTest {
 	
 	@Test
 	public void testexportToASC(){
-		GeneratorFlat flat = new GeneratorFlat();
-		Bound bound = new Bound(new Point(0,0),new Point(10,10));
-		int resolution = 1;
-		Map testMap = new Map(flat, bound, resolution);
+		Map testMap = new Map("flat");
 		testMap.pregenerate();
 		testMap.generate();
 		int nbExceptions = 0;
@@ -140,10 +128,7 @@ public class MapTest {
 	
 	@Test
 	public void testexportToGeoTiff(){
-		GeneratorFlat flat = new GeneratorFlat();
-		Bound bound = new Bound(new Point(0,0),new Point(10,10));
-		int resolution = 1;
-		Map testMap = new Map(flat, bound, resolution);
+		Map testMap = new Map("flat");
 		testMap.pregenerate();
 		testMap.generate();
 		int nbExceptions = 0;
