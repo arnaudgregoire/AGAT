@@ -14,6 +14,8 @@ public class Map {
 	private int sizeX;
 	private int sizeY;
 	public Bound bound; // Mon nom est Bound, James Bound
+
+
 	public int resolution;
 	public int crs; 
 
@@ -38,10 +40,10 @@ public class Map {
 	
 	/**
 	 * Le constructeur bas niveau de la class Map
-	 * @param generator Une instanciation d'une classe implémentant IGeneratorStrategy
+	 * @param generator Une instanciation d'une classe implÃ©mentant IGeneratorStrategy
 	 * @param bound Les bords de la map
-	 * @param resolution la résolution souhaité
-	 * @param crs Le numéro EPSG de la projection cartographique choisi
+	 * @param resolution la rÃ©solution souhaitÃ©
+	 * @param crs Le numÃ©ro EPSG de la projection cartographique choisi
 	 */
 	public Map(String nomStrategy, int resolution, Bound bound, int crs) throws StrategyNotFoundException {
 		GeneratorFactory factory = new GeneratorFactory();
@@ -53,9 +55,9 @@ public class Map {
 
 	/**
 	 * Le constructeur bas niveau de la class Map
-	 * @param generator Une instanciation d'une classe implémentant IGeneratorStrategy
+	 * @param generator Une instanciation d'une classe implÃ©mentant IGeneratorStrategy
 	 * @param bound Les bords de la map
-	 * @param resolution la résolution souhaité
+	 * @param resolution la rÃ©solution souhaitÃ©
 	 */
 	public Map(String nomStrategy, int resolution, Bound bound) throws StrategyNotFoundException {
 		GeneratorFactory factory = new GeneratorFactory();
@@ -66,10 +68,10 @@ public class Map {
 	};
 	
 	/**
-	 * Le constructeur avec une emprise par défaut 
-	 * @param generator Une instanciation d'une classe implémentant IGeneratorStrategy
-	 * @param resolution la résolution souhaité
-	 * l'emprise par défaut est 0/0 -> 100/100
+	 * Le constructeur avec une emprise par dÃ©faut 
+	 * @param generator Une instanciation d'une classe implÃ©mentant IGeneratorStrategy
+	 * @param resolution la rÃ©solution souhaitÃ©
+	 * l'emprise par dÃ©faut est 0/0 -> 100/100
 	 */
 	public Map(String nomStrategy, int resolution) throws StrategyNotFoundException {
 		GeneratorFactory factory = new GeneratorFactory();
@@ -81,10 +83,10 @@ public class Map {
 
 	
 	/**
-	 * Le constructeur le plus user-friendly possible avec juste le nom du générateur Ã  rentrer
-	 * la résolution et l'emprise sont générés par défaut
-	 * résolution 1 et emprise (0,0) -> (100,100)
-	 * Les noms de générateur pris en compte sont : 
+	 * Le constructeur le plus user-friendly possible avec juste le nom du gÃ©nÃ©rateur Ã  rentrer
+	 * la rÃ©solution et l'emprise sont gÃ©nÃ©rÃ©s par dÃ©faut
+	 * rÃ©solution 1 et emprise (0,0) -> (100,100)
+	 * Les noms de gÃ©nÃ©rateur pris en compte sont : 
 	 * flat, perlin, random, simplex, value
 	 * @param nomStrategy
 	 * @throws StrategyNotFoundException
@@ -98,8 +100,8 @@ public class Map {
 	};
 	
 	/**
-	 * On calcule la taille de la matrice data qui contiendra les données du MNT
-	 * Le nombre d'éléments de la matrice dépend de la résolution et de la largeur /hauteur
+	 * On calcule la taille de la matrice data qui contiendra les donnÃ©es du MNT
+	 * Le nombre d'Ã©lÃ©ments de la matrice dÃ©pend de la rÃ©solution et de la largeur /hauteur
 	 * de la map
 	 */
 	public void pregenerate() {
@@ -109,9 +111,9 @@ public class Map {
 	}
 	
 	/**
-	 * On génÃ¨re un MNT aléatoire
-	 * La méthode de génération dépend de la classe du generator instancié
-	 * @return le MNT généré sous forme de matrice double[][]
+	 * On gÃ©nÃ¨re un MNT alÃ©atoire
+	 * La mÃ©thode de gÃ©nÃ©ration dÃ©pend de la classe du generator instanciÃ©
+	 * @return le MNT gÃ©nÃ©rÃ© sous forme de matrice double[][]
 	 */
 	public double[][] generate(){
 		this.pregenerate();
@@ -121,8 +123,8 @@ public class Map {
 	
 	
 	/**
-	 * Importe dans un objet de classe Bound les coordonnées
-	 * du rectangle englobant un shapefile donné en entrée
+	 * Importe dans un objet de classe Bound les coordonnÃ©es
+	 * du rectangle englobant un shapefile donnÃ© en entrÃ©e
 	 * @param nomFichier le nom du shapefile (il y a un dossier shp dans agat, mais l'utilisateur 
 	 * peut prendre son shp depuis n'importe quel endroit.)
 	 * @return
@@ -135,8 +137,8 @@ public class Map {
 	}
 	
 	/**
-	 * Importe dans un objet de classe Bound les coordonnées
-	 * du rectangle englobant un shapefile donné en entrée
+	 * Importe dans un objet de classe Bound les coordonnÃ©es
+	 * du rectangle englobant un shapefile donnÃ© en entrÃ©e
 	 * @param nomFichier le nom du raster 
 	 * @return
 	 */
@@ -148,10 +150,10 @@ public class Map {
 	}
 	
 	/**
-	 * Exporte les données de l'instance map en cours dans un fichier .asc
-	 * Il sera ajouté dans le sous dossier data 
-	 * @param nomFichier le nom du fichier, l'extension .asc sera rajouté
-	 * TODO check si l'utilisateur a déja marqué l'extension .asc
+	 * Exporte les donnÃ©es de l'instance map en cours dans un fichier .asc
+	 * Il sera ajoutÃ© dans le sous dossier data 
+	 * @param nomFichier le nom du fichier, l'extension .asc sera rajoutÃ©
+	 * TODO check si l'utilisateur a dÃ©ja marquÃ© l'extension .asc
 	 */
 	public void exportToASC(String nomFichier) {
 		ASCWriter ascWriter = new ASCWriter();
@@ -159,10 +161,10 @@ public class Map {
 	}
 	
 	/**
-	 * Exporte les données de l'instance map en cours dans un fichier .tiff
-	 * Il sera ajouté dans le sous dossier data 
-	 * @param nomFichier le nom du fichier, l'extension .asc sera rajouté
-	 * TODO check si l'utilisateur a déja marqué l'extension .geotiff
+	 * Exporte les donnÃ©es de l'instance map en cours dans un fichier .tiff
+	 * Il sera ajoutÃ© dans le sous dossier data 
+	 * @param nomFichier le nom du fichier, l'extension .asc sera rajoutÃ©
+	 * TODO check si l'utilisateur a dÃ©ja marquÃ© l'extension .geotiff
 	 */
 	public void exportToGeoTiff(String nomFichier) {
 		GeotiffWriter geoWriter = new GeotiffWriter();
@@ -184,5 +186,13 @@ public class Map {
 	
 	public int getSizeY() {
 		return sizeY;
+	}
+	public IGeneratorStrategy getGenerator() {
+		return generator;
+	}
+
+
+	public void setGenerator(IGeneratorStrategy generator) {
+		this.generator = generator;
 	}
 }

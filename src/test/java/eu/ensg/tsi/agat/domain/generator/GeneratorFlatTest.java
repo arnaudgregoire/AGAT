@@ -1,12 +1,10 @@
 package eu.ensg.tsi.agat.domain.generator;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import eu.ensg.tsi.agat.domain.Bound;
 import eu.ensg.tsi.agat.domain.Map;
-import eu.ensg.tsi.agat.domain.Point;
 
 public class GeneratorFlatTest {
 

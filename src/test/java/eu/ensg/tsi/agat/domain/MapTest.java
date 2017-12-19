@@ -65,8 +65,9 @@ public class MapTest {
 
 	@Test
 	public void testimportShapefileBound() {
-		Map testMap = new Map("flat");
+		Map testMap = new Map("random");
 		testMap.importShapefileBound("shp/buffer_dissolve_paris.shp");
+		//testMap.generate();
 		assertNotSame(Double.NaN, testMap.bound.getBottomLeft().getX());	
 		assertNotSame(Double.NaN, testMap.bound.getBottomLeft().getY());	
 		assertNotSame(Double.NaN, testMap.bound.getBottomRight().getX());	
@@ -74,7 +75,8 @@ public class MapTest {
 		assertNotSame(Double.NaN, testMap.bound.getUpperleft().getX());	
 		assertNotSame(Double.NaN, testMap.bound.getUpperleft().getY());	
 		assertNotSame(Double.NaN, testMap.bound.getUpperRight().getX());	
-		assertNotSame(Double.NaN, testMap.bound.getUpperRight().getY());	
+		assertNotSame(Double.NaN, testMap.bound.getUpperRight().getY());
+		//testMap.exportToGeoTiff("testParis");
 	}
 	
 	@Test

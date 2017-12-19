@@ -34,14 +34,16 @@ public class GeneratorSimplexNoise implements IGeneratorStrategy {
 	public GeneratorSimplexNoise() {
 		super();
 		this.persistence = 0.5;
-		this.numberOfOctaves = 5;
+		this.numberOfOctaves = 10;
 	}
+
+
 
 	/**
 	 * L'implémentation de la méthode process issu de l'interface IGeneratorStrategy
 	 */
 	public void process(double[][] data) {
-	    SimplexNoise simplexNoise=new SimplexNoise(this.numberOfOctaves, data.length,this.persistence,1);
+	    SimplexNoise simplexNoise=new SimplexNoise(this.numberOfOctaves, data.length,this.persistence,10);
 
 	    double moyenne = 0;
 	    
@@ -69,5 +71,6 @@ public class GeneratorSimplexNoise implements IGeneratorStrategy {
 	    }
 	    
 	}
+
 
 }
