@@ -20,7 +20,7 @@ public class VectorReaderTest {
 	public void testnotexist() {
 		Map map = new Map("simplex");
 		map.generate();
-		map.importShapefileBound("sq gdfsf l la lùfdsdsm qs sdù lcw ");
+		map.importShapefileBound("sq gdfsf l la lffdsdsm qs sd lcw ");
 		assertEquals(Double.NaN, map.bound.getBottomLeft().getX(),0.000000001);
 	}
 
