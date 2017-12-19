@@ -1,0 +1,11 @@
+# Fichier d'exportation de palette de couleurs généré par QGIS
+INTERPOLATION:INTERPOLATED
+0,0,60,215,255,deep water
+0.2,0,140,255,255,alternative water
+0.4,0,201,240,255,water
+0.43,255,249,129,255,sand
+0.5,37,227,0,255,grass
+0.55,3,207,0,255,alternative grass
+0.9,0,167,0,255,deep grass
+0.93,194,185,160,255,rock
+0.95,255,255,255,255,snow

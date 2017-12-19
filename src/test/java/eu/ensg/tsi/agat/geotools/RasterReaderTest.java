@@ -21,7 +21,7 @@ public class RasterReaderTest {
 	public void testnotexist() {
 		Map map = new Map("simplex");
 		map.generate();
-		map.importRasterBound("sq gdfsf l la lùfdsdsm qs sdù lcw ");
+		map.importRasterBound("sq gdfsf l la lsfdsdsm qs sds lcw ");
 		assertEquals(Double.NaN, map.bound.getBottomLeft().getX(),0.000000001);
 	}
 
