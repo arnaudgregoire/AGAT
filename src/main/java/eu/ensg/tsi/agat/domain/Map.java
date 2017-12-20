@@ -13,11 +13,9 @@ public class Map {
 	private double[][] data;
 	private int sizeX;
 	private int sizeY;
-	public Bound bound; // Mon nom est Bound, James Bound
-
-
-	public int resolution;
-	public int crs; 
+	private Bound bound; // Mon nom est Bound, James Bound
+	private int resolution;
+	private int crs; 
 
 	/**
 	 * Un affichage console des valeurs du MNT sous la forme
@@ -48,9 +46,9 @@ public class Map {
 	public Map(String nomStrategy, int resolution, Bound bound, int crs) throws StrategyNotFoundException {
 		GeneratorFactory factory = new GeneratorFactory();
 		this.generator = factory.create(nomStrategy);
-		this.resolution = resolution;
-		this.bound = bound;
-		this.crs = crs;
+		this.setResolution(resolution);
+		this.setBound(bound);
+		this.setCrs(crs);
 	};
 
 	/**
@@ -62,9 +60,9 @@ public class Map {
 	public Map(String nomStrategy, int resolution, Bound bound) throws StrategyNotFoundException {
 		GeneratorFactory factory = new GeneratorFactory();
 		this.generator = factory.create(nomStrategy);
-		this.resolution = resolution;
-		this.bound = bound;
-		this.crs = 2154;
+		this.setResolution(resolution);
+		this.setBound(bound);
+		this.setCrs(2154);
 	};
 	
 	/**
@@ -76,9 +74,9 @@ public class Map {
 	public Map(String nomStrategy, int resolution) throws StrategyNotFoundException {
 		GeneratorFactory factory = new GeneratorFactory();
 		this.generator = factory.create(nomStrategy);
-		this.resolution = resolution;
-		this.bound = new Bound(new Point(0,0), new Point(100,100));
-		this.crs = 2154;
+		this.setResolution(resolution);
+		this.setBound(new Bound(new Point(0,0), new Point(100,100)));
+		this.setCrs(2154);
 	};
 
 	
@@ -94,9 +92,9 @@ public class Map {
 	public Map(String nomStrategy) throws StrategyNotFoundException {
 		GeneratorFactory factory = new GeneratorFactory();
 		this.generator = factory.create(nomStrategy);
-		this.resolution = 1;
-		this.bound = new Bound( new Point(0,0), new Point(100,100));
-		this.crs = 2154;
+		this.setResolution(1);
+		this.setBound(new Bound( new Point(0,0), new Point(100,100)));
+		this.setCrs(2154);
 	};
 	
 	/**
@@ -105,8 +103,8 @@ public class Map {
 	 * de la map
 	 */
 	public void pregenerate() {
-		this.sizeX = (int) Math.floor(this.bound.getWidth()  / this.resolution);
-		this.sizeY = (int) Math.floor(this.bound.getHeight() / this.resolution);
+		this.sizeX = (int) Math.floor(this.getBound().getWidth()  / this.getResolution());
+		this.sizeY = (int) Math.floor(this.getBound().getHeight() / this.getResolution());
 		this.setData(new double[sizeX][sizeY]);
 	}
 	
@@ -131,8 +129,8 @@ public class Map {
 	 */
 	public Bound importShapefileBound(String nomFichier) {
 		VectorReader shpReader = new VectorReader();
-		Bound shpBound = shpReader.getBoundofFile(nomFichier, this.crs);
-		this.bound = shpBound;
+		Bound shpBound = shpReader.getBoundofFile(nomFichier, this.getCrs());
+		this.setBound(shpBound);
 		return shpBound;
 	}
 	
@@ -144,8 +142,8 @@ public class Map {
 	 */
 	public Bound importRasterBound(String nomFichier) {
 		RasterReader shpReader = new RasterReader();
-		Bound shpBound = shpReader.getBoundofFile(nomFichier, this.crs);
-		this.bound = shpBound;
+		Bound shpBound = shpReader.getBoundofFile(nomFichier, this.getCrs());
+		this.setBound(shpBound);
 		return shpBound;
 	}
 	
@@ -191,12 +189,12 @@ public class Map {
 	}
 	
 	public int getSizeX() {
-		this.sizeX = (int) Math.floor(this.bound.getWidth()  / this.resolution);
+		this.sizeX = (int) Math.floor(this.getBound().getWidth()  / this.getResolution());
 		return sizeX;
 	}
 	
 	public int getSizeY() {
-		this.sizeY = (int) Math.floor(this.bound.getHeight() / this.resolution);
+		this.sizeY = (int) Math.floor(this.getBound().getHeight() / this.getResolution());
 		return sizeY;
 	}
 	public IGeneratorStrategy getGenerator() {
@@ -206,5 +204,35 @@ public class Map {
 
 	public void setGenerator(IGeneratorStrategy generator) {
 		this.generator = generator;
+	}
+
+
+	public int getResolution() {
+		return resolution;
+	}
+
+
+	public void setResolution(int resolution) {
+		this.resolution = resolution;
+	}
+
+
+	public int getCrs() {
+		return crs;
+	}
+
+
+	public void setCrs(int crs) {
+		this.crs = crs;
+	}
+
+
+	public Bound getBound() {
+		return bound;
+	}
+
+
+	public void setBound(Bound bound) {
+		this.bound = bound;
 	}
 }

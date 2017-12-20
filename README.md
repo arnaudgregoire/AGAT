@@ -3,11 +3,11 @@
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![Build Status](https://travis-ci.org/arnaudgregoire/AGAT.svg?branch=master)](https://travis-ci.org/arnaudgregoire/AGAT)
 
-Algorithmes de Génération Aléatoires de Terrains
+Algorithmes de GÃ©nÃ©ration AlÃ©atoires de Terrains
 
 ## Premiers pas
 
-Les instructions suivantes vous donneront un ordre d'idée des capacités de la librairie AGAT et de comment les utiliser.
+Les instructions suivantes vous donneront un ordre d'idÃ©e des capacitÃ©s de la librairie AGAT et de comment les utiliser.
 
 ### Premier MNT
 
@@ -17,11 +17,11 @@ map.generate();
 map.exportToGeoTiff("testSimplex");
 ```
 
-Ce script créé un MNT puis le stocke dans le fichier ./data/testSimplex.tiff.  
+Ce script crÃ©Ã© un MNT puis le stocke dans le fichier ./data/testSimplex.tiff.  
 
-### Différents types de générations
+### DiffÃ©rents types de gÃ©nÃ©rations
 
-Différents mots-clés correspodant Ã  différents types de générations peuvent Ãªtre utilisés. 
+DiffÃ©rents mots-clÃ©s correspodant Ã  diffÃ©rents types de gÃ©nÃ©rations peuvent Ãªtre utilisÃ©s. 
  
   - "simplex" : bruit de simplex
   - "perlin" : bruit de Perlin
@@ -40,33 +40,45 @@ map.exportToGeoTiff("testSimplex");
 map.exportToASC("testSimplex");
 ```
 
-Ce script créé un MNT et l'enregistre 2 fois dans le sous dossier data:
+Ce script crÃ©Ã© un MNT et l'enregistre 2 fois dans le sous dossier data:
  
-  - une première fois au format Geotiff
+  - une premiÃ©re fois au format Geotiff
   - une seconde fois au format ASC
 
 ### Importer une emprise depuis un fichier vecteur
 
-On peut charger l'emprise d'un fichier shp pour générer un MNT de la zone. 
-Si l'identifiant EPSG du shapefile ne correspond pas à celui de l'objet Map (l'identifiant par défaut est EPSG:2154, projection Lambert 93), la fonction essaiera de créer l'emprise dans la projection associé au shapefile puis de la reprojeter dans la projection associé à l'objet Map.
+On peut charger l'emprise d'un fichier shp pour gÃ©nÃ©rer un MNT de la zone. 
+Si l'identifiant EPSG du shapefile ne correspond pas Ã  celui de l'objet Map (l'identifiant par dÃ©faut est EPSG:2154, projection Lambert 93), la fonction essaiera de crÃ©er l'emprise dans la projection associÃ© au shapefile puis de la reprojeter dans la projection associÃ© Ã  l'objet Map.
 
 ```
 Map map = new Map("simplex");
 map.importShapefileBound("shp/buffer_dissolve_paris.shp");
-map.resolution = map.getAdvisedResolution();
+testMap.setResolution(testMap.getAdvisedResolution());
 map.generate();
 map.exportToGeoTiff("testParis");
 ```
 
-Ici, on notera l'utilisation de la méthode getAdvisedResolution() qui permet simplement de renvoyer la valeur conseillé par la librarie pour effectuer la génération. En effet, si la résolution est trop élevée, la taille du fichier et les temps de calculs vont très vite augmenter ( 45 secondes pour 100 000 000 de points avec la méthode de bruit simplex ).
+Ici, on notera l'utilisation de la mÃ©thode getAdvisedResolution() qui permet simplement de renvoyer la valeur conseillÃ© par la librarie pour effectuer la gÃ©nÃ©ration. En effet, si la rÃ©solution est trop Ã©levÃ©e, la taille du fichier et les temps de calculs vont trÃ©s vite augmenter ( 45 secondes pour 100 000 000 de points avec la mÃ©thode de bruit simplex ).
+
+### Importer une emprise depuis un fichier raster
+
+MÃªme chose que prÃ©cÃ©demment mais avec un raster.
+
+```
+Map map = new Map("simplex");
+map.importRasterBound("data/testParis.tiff");
+map.setResolution(testMap.getAdvisedResolution());
+map.generate();
+map.exportToGeoTiff("testParis2");
+```
 
 ## Built With
 
 * [Geotools](http://www.dropwizard.io/1.0.2/docs/) - Boite Ã  outils SIG 
-* [Maven](http://www.geotools.org/) - Gestion des dépendances
+* [Maven](http://www.geotools.org/) - Gestion des dÃ©pendances
 
 
 ## License
 
-Ce projet est sous la license Creative Common BY - Voir le [LICENSE.md](LICENSE.md) pour plus de détails.
+Ce projet est sous la license Creative Common BY - Voir le [LICENSE.md](LICENSE.md) pour plus de dÃ©tails.
 

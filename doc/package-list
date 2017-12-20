@@ -1,1 +1,8 @@
 eu.ensg.tsi.agat.domain
+eu.ensg.tsi.agat.domain.generator
+eu.ensg.tsi.agat.domain.generator.simplex
+eu.ensg.tsi.agat.domain.utility
+eu.ensg.tsi.agat.geotools
+eu.ensg.tsi.agat.persistance
+eu.ensg.tsi.agat.persistence
+exceptions

@@ -1,5 +1,6 @@
 package eu.ensg.tsi.agat.domain;
 
+import eu.ensg.tsi.agat.domain.generator.GeneratorDiamondSquare;
 import eu.ensg.tsi.agat.domain.generator.GeneratorFlat;
 import eu.ensg.tsi.agat.domain.generator.GeneratorPerlinNoise;
 import eu.ensg.tsi.agat.domain.generator.GeneratorRandom;
@@ -32,6 +33,10 @@ public class GeneratorFactory {
 		
 		case "perlin":
 			strategy = new GeneratorPerlinNoise();
+			break;
+			
+		case "diamond":
+			strategy = new GeneratorDiamondSquare();
 			break;
 			
 		default:

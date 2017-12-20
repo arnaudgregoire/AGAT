@@ -13,8 +13,8 @@ public class RasterReaderTest {
 		Map map = new Map("simplex");
 		map.generate();	
 		map.importRasterBound("data/testValue.tiff");
-		assertEquals(100, (int) map.bound.getUpperRight().getX());
-		assertEquals(100, (int) map.bound.getUpperRight().getY());
+		assertEquals(100, (int) map.getBound().getUpperRight().getX());
+		assertEquals(100, (int) map.getBound().getUpperRight().getY());
 	}
 	
 	@Test
@@ -22,7 +22,7 @@ public class RasterReaderTest {
 		Map map = new Map("simplex");
 		map.generate();
 		map.importRasterBound("sq gdfsf l la lsfdsdsm qs sds lcw ");
-		assertEquals(Double.NaN, map.bound.getBottomLeft().getX(),0.000000001);
+		assertEquals(Double.NaN, map.getBound().getBottomLeft().getX(),0.000000001);
 	}
 
 }

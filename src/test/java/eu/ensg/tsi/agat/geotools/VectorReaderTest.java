@@ -13,7 +13,7 @@ public class VectorReaderTest {
 		Map map = new Map("simplex");
 		map.generate();	
 		map.importShapefileBound("shp/buffer_dissolve_paris.shp");
-		assertEquals(643155, (int) Math.floor(map.bound.getBottomLeft().getX()));
+		assertEquals(643155, (int) Math.floor(map.getBound().getBottomLeft().getX()));
 	}
 	
 	@Test
@@ -21,7 +21,7 @@ public class VectorReaderTest {
 		Map map = new Map("simplex");
 		map.generate();
 		map.importShapefileBound("sq gdfsf l la lffdsdsm qs sd lcw ");
-		assertEquals(Double.NaN, map.bound.getBottomLeft().getX(),0.000000001);
+		assertEquals(Double.NaN, map.getBound().getBottomLeft().getX(),0.000000001);
 	}
 
 }

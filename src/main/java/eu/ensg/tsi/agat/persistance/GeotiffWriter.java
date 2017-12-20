@@ -36,14 +36,14 @@ public class GeotiffWriter implements IWriter {
 			raster.setSample(x, y, 0, map.getData()[x][y]);
 			}
 		}
-		Rectangle2D bounds = new Rectangle2D.Double(map.bound.getBottomLeft().getX(),
-        								map.bound.getBottomLeft().getY(),
-        								map.resolution *map.getSizeX(),
-                                        map.resolution * map.getSizeY());
+		Rectangle2D bounds = new Rectangle2D.Double(map.getBound().getBottomLeft().getX(),
+        								map.getBound().getBottomLeft().getY(),
+        								map.getResolution() *map.getSizeX(),
+                                        map.getResolution() * map.getSizeY());
         
         CoordinateReferenceSystem sourceCRS = null;
 		try {
-			sourceCRS = CRS.decode("EPSG:" + map.crs);
+			sourceCRS = CRS.decode("EPSG:" + map.getCrs());
 		} catch (NoSuchAuthorityCodeException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

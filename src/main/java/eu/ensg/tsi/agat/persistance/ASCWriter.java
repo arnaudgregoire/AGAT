@@ -42,9 +42,9 @@ public class ASCWriter implements IWriter {
 	private void addMetadata(Map map) {
 		this.buffer += "ncols "     + map.getSizeX() + "\n";
 		this.buffer += "nrows "     + map.getSizeY() + "\n";
-		this.buffer += "xllcorner " + map.bound.getBottomLeft().getX() + "\n";
-		this.buffer += "yllcorner " + map.bound.getBottomLeft().getY() + "\n";
-		this.buffer += "cellsize "  + map.resolution + "\n";
+		this.buffer += "xllcorner " + map.getBound().getBottomLeft().getX() + "\n";
+		this.buffer += "yllcorner " + map.getBound().getBottomLeft().getY() + "\n";
+		this.buffer += "cellsize "  + map.getResolution() + "\n";
 		this.buffer += "NODATA_value -9999 \n"; 
 	}
 
