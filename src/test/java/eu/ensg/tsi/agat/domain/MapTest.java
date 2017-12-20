@@ -54,7 +54,7 @@ public class MapTest {
 		assertEquals(100,(int) testMap.bound.getUpperRight().getY());
 		int nbExceptions = 0;
 		try {
-			testMap = new Map("un mauvais nom de générateur !");
+			testMap = new Map("un mauvais nom de gÃ©nÃ©rateur !");
 		}
 		catch(Exception e) {
 			nbExceptions ++;
