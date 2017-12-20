@@ -5,9 +5,10 @@
 
 Algorithmes de Génération Aléatoires de Terrains
 
-## Premiers pas
+## Introduction
 
-Les instructions suivantes vous donneront un ordre d'idée des capacités de la librairie AGAT et de comment les utiliser.
+Le projet AGAT est en intégration continue avec Travis.
+Les instructions suivantes vous donneront un ordre d'idée des capacités de la librairie AGAT et de comment les utiliser. Tous les morceaux de codes présentés dans cette documentation utilisateur sont éxécutés à chaque lecture des tests unitaires. Leurs résultats est enregistré dans le dossier data.
 
 ### Premier MNT
 
