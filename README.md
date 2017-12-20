@@ -42,17 +42,23 @@ map.exportToASC("testSimplex");
 
 Ce script créé un MNT et l'enregistre 2 fois dans le sous dossier data:
  
-  - une premiÃ¨re fois au format Geotiff
+  - une première fois au format Geotiff
   - une seconde fois au format ASC
 
-### Importer une emprise
+### Importer une emprise depuis un fichier vecteur
 
-Explain what these tests test and why
+On peut charger l'emprise d'un fichier shp pour générer un MNT de la zone. 
+Si l'identifiant EPSG du shapefile ne correspond pas à celui de l'objet Map (l'identifiant par défaut est EPSG:2154, projection Lambert 93), la fonction essaiera de créer l'emprise dans la projection associé au shapefile puis de la reprojeter dans la projection associé à l'objet Map.
 
 ```
-Give an example
+Map map = new Map("simplex");
+map.importShapefileBound("shp/buffer_dissolve_paris.shp");
+map.resolution = map.getAdvisedResolution();
+map.generate();
+map.exportToGeoTiff("testParis");
 ```
 
+Ici, on notera l'utilisation de la méthode getAdvisedResolution() qui permet simplement de renvoyer la valeur conseillé par la librarie pour effectuer la génération. En effet, si la résolution est trop élevée, la taille du fichier et les temps de calculs vont très vite augmenter ( 45 secondes pour 100 000 000 de points avec la méthode de bruit simplex ).
 
 ## Built With
 
@@ -62,5 +68,5 @@ Give an example
 
 ## License
 
-This project is licensed under the Creative Common BY - see the [LICENSE.md](LICENSE.md) file for details
+Ce projet est sous la license Creative Common BY - Voir le [LICENSE.md](LICENSE.md) pour plus de détails.
 

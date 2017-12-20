@@ -54,7 +54,7 @@ public class MapTest {
 		assertEquals(100,(int) testMap.bound.getUpperRight().getY());
 		int nbExceptions = 0;
 		try {
-			testMap = new Map("un mauvais nom de gÃ©nÃ©rateur !");
+			testMap = new Map("un mauvais nom de générateur !");
 		}
 		catch(Exception e) {
 			nbExceptions ++;
@@ -67,7 +67,7 @@ public class MapTest {
 	public void testimportShapefileBound() {
 		Map testMap = new Map("random");
 		testMap.importShapefileBound("shp/buffer_dissolve_paris.shp");
-		//testMap.generate();
+		testMap.generate();
 		assertNotSame(Double.NaN, testMap.bound.getBottomLeft().getX());	
 		assertNotSame(Double.NaN, testMap.bound.getBottomLeft().getY());	
 		assertNotSame(Double.NaN, testMap.bound.getBottomRight().getX());	
@@ -76,7 +76,6 @@ public class MapTest {
 		assertNotSame(Double.NaN, testMap.bound.getUpperleft().getY());	
 		assertNotSame(Double.NaN, testMap.bound.getUpperRight().getX());	
 		assertNotSame(Double.NaN, testMap.bound.getUpperRight().getY());
-		//testMap.exportToGeoTiff("testParis");
 	}
 	
 	@Test
@@ -145,6 +144,16 @@ public class MapTest {
 		testMap.exportToGeoTiff("/////////////un mauvais nom testFlat2");
 		File f = new File("data//////////////un mauvais nom testFlat2");	
 		assertEquals(f.exists(), false);
+	}
+	
+	@Test
+	public void testresolutionadpate() {
+		Map map = new Map("simplex");
+		map.importShapefileBound("shp/buffer_dissolve_paris.shp");
+		map.resolution = map.getAdvisedResolution();
+		System.out.println(map.resolution);
+		map.generate();
+		map.exportToGeoTiff("testPariiiiiiiis");
 	}
 	
 }

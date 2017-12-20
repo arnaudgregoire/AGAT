@@ -43,7 +43,7 @@ public class GeotiffWriter implements IWriter {
         
         CoordinateReferenceSystem sourceCRS = null;
 		try {
-			sourceCRS = CRS.decode("EPSG:2154");
+			sourceCRS = CRS.decode("EPSG:" + map.crs);
 		} catch (NoSuchAuthorityCodeException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

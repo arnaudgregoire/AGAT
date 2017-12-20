@@ -10,6 +10,8 @@ import org.geotools.data.DataStoreFinder;
 import org.geotools.data.simple.SimpleFeatureCollection;
 import org.geotools.data.simple.SimpleFeatureSource;
 import org.geotools.geometry.jts.ReferencedEnvelope;
+import org.geotools.referencing.CRS;
+import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
 import eu.ensg.tsi.agat.domain.Bound;
 import eu.ensg.tsi.agat.domain.Point;
@@ -17,7 +19,7 @@ import eu.ensg.tsi.agat.domain.Point;
 public class VectorReader implements IReader {
 	
 	@Override
-	public Bound getBoundofShapefile(String filePath) {
+	public Bound getBoundofFile(String filePath, int epsg) {
 		double left   = Double.NaN; 
 		double right  = Double.NaN; 
 		double top    = Double.NaN; 
@@ -31,6 +33,15 @@ public class VectorReader implements IReader {
 			SimpleFeatureSource featureSource = dataStore.getFeatureSource(dataStore.getTypeNames()[0]);
 			SimpleFeatureCollection collection = featureSource.getFeatures();
 			ReferencedEnvelope env = collection.getBounds();
+			CoordinateReferenceSystem crs = env.getCoordinateReferenceSystem();
+			
+			CoordinateReferenceSystem sourceCRS = CRS.decode("EPSG:" + epsg);
+			int epsgFile = (int) CRS.lookupEpsgCode(crs, false);
+			int epsgSource = (int) CRS.lookupEpsgCode(sourceCRS, false);
+			
+			if(epsgFile != epsgSource) {
+				env.transform(sourceCRS, false);
+			}
 			
 			left   = env.getMinX();
 			right  = env.getMaxX();
@@ -44,5 +55,6 @@ public class VectorReader implements IReader {
 
 		return new Bound( new Point(left,bottom), new Point(right,top));
 	}
+
 
 }
