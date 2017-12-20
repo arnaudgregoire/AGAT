@@ -4,9 +4,9 @@ import eu.ensg.tsi.agat.domain.generator.simplex.SimplexNoise;
 import eu.ensg.tsi.agat.domain.utility.Round;
 
 /**
- * Le générateur de map par bruit de simplex
- * Je me sers ici d'une implémentation existante et optimisé
- * Toutes les références des auteurs sont dans le package simplex
+ * Le gÃ©nÃ©rateur de map par bruit de simplex
+ * Je me sers ici d'une implÃ©mentation existante et optimisÃ©
+ * Toutes les rÃ©fÃ©rences des auteurs sont dans le package simplex
  * @author arnaudgregoire	
  *
  */
@@ -27,9 +27,9 @@ public class GeneratorSimplexNoise implements IGeneratorStrategy {
 	}
 	
 	/**
-	 * Le constructeur simplifié du bruit de simplex,
-	 * la persistence est réglé Ã  .4
-	 * le nombre d'octaves est réglé Ã  6
+	 * Le constructeur simplifiÃ© du bruit de simplex,
+	 * la persistence est rÃ©glÃ© Ã  .4
+	 * le nombre d'octaves est rÃ©glÃ© Ã  6
 	 */
 	public GeneratorSimplexNoise() {
 		super();
@@ -40,7 +40,7 @@ public class GeneratorSimplexNoise implements IGeneratorStrategy {
 
 
 	/**
-	 * L'implémentation de la méthode process issu de l'interface IGeneratorStrategy
+	 * L'implÃ©mentation de la mÃ©thode process issu de l'interface IGeneratorStrategy
 	 */
 	public void process(double[][] data) {
 	    SimplexNoise simplexNoise=new SimplexNoise(this.numberOfOctaves, data.length,this.persistence,1);
