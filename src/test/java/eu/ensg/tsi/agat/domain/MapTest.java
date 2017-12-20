@@ -8,6 +8,7 @@ import java.io.File;
 
 import org.junit.Test;
 
+import eu.ensg.tsi.agat.domain.generator.GeneratorValueNoise;
 import exceptions.StrategyNotFoundException;
 
 
@@ -200,6 +201,22 @@ public class MapTest {
 		map.setBound(new Bound( new Point(0,0) , new Point(300,200) )); 
 		map.generate();
 		map.exportToGeoTiff("testChangeEmprise");
+	}
+	
+	@Test
+	public void test4() {
+		Map map = new Map("value");
+		map.setCrs(4326);
+		map.generate();
+		map.exportToGeoTiff("testChangeEPSG");
+	}
+	
+	@Test
+	public void test5() {
+		Map map = new Map("random");
+		map.setGenerator(new GeneratorValueNoise(10, 7, 0.3));
+		map.generate();
+		map.exportToGeoTiff("testChangeGenerator");
 	}
 	
 }

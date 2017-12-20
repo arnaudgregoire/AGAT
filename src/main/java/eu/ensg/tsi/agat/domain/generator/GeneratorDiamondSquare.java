@@ -1,4 +1,7 @@
 package eu.ensg.tsi.agat.domain.generator;
+
+import eu.ensg.tsi.agat.domain.utility.Round;
+
 /**
  * Implémentation du pseudo code de wikipedia
  * https://fr.wikipedia.org/wiki/Algorithme_Diamant-Carr%C3%A9
@@ -30,7 +33,7 @@ public class GeneratorDiamondSquare implements IGeneratorStrategy {
 		
 		for (int i = 0; i < data.length; i++) {
 			for (int j = 0; j < data.length; j++) {
-				data[i][j] = InvMaxMin * (data[i][j] - max) +1;
+				data[i][j] = Round.round2Dec(InvMaxMin * (data[i][j] - max) +1);
 			}
 		}
 		

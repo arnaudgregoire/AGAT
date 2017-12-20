@@ -14,16 +14,18 @@ public class GeneratorSimplexNoise implements IGeneratorStrategy {
 
 	private double persistence;
 	private int numberOfOctaves;
+	private int pas;
 	
 	/**
 	 * Le constructeur du bruit de simplex avec tous les paramètres
 	 * @param numberOfOctaves
 	 * @param persistence
 	 */
-	public GeneratorSimplexNoise(int numberOfOctaves, double persistence) {
+	public GeneratorSimplexNoise(int pas, int numberOfOctaves, double persistence) {
 		super();
 		this.persistence = persistence;
 		this.numberOfOctaves = numberOfOctaves;
+		this.setPas(pas);
 	}
 	
 	/**
@@ -70,6 +72,14 @@ public class GeneratorSimplexNoise implements IGeneratorStrategy {
 	        }
 	    }
 	    
+	}
+
+	public int getPas() {
+		return pas;
+	}
+
+	public void setPas(int pas) {
+		this.pas = pas;
 	}
 
 

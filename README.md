@@ -38,11 +38,11 @@ map.generate();
 map.exportToGeoTiff("testChangeEmprise");
 ```
 
-La librarie propose aussi d'importer l'emprise d'un shapefile, son utilisation est détaillé dans la partie Import/Export 
+La librarie propose aussi d'importer l'emprise d'un shapefile, son utilisation est détaillé dans la partie Import/Export. 
 
 ### Changer la résolution
 
-AGAT propose à ses utilisateurs de changer la résolution d'une map. Par défaut, la résolution de toutes les maps est fixé à 1.
+AGAT propose à ses utilisateurs de changer la résolution d'une map. Par défaut, la résolution de toutes les maps est fixé à 1 (l'unité dépend de la projection utilisé).
 
 ```java
 Map map = new Map("value");
@@ -60,13 +60,34 @@ map.generate();
 map.exportToGeoTiff("testAdvisedResolution");
 ```
 
+La résolution sera alors de la longeur du plus petit coté de l'emprise /100.
+
 ### Changer l'amplitude
+
+Par défaut, toutes les valeurs générés qui composent le MNT sont comprises entre 0 et 1. L'utilisateur peut réétaler les valeurs entre 0 et 
+l'altitude maximum voulu.
+
+```java
+Map map = new Map("diamond");
+map.generate();
+map.resize(255); //altitude max souhaité
+map.exportToGeoTiff("testresize");
+```
 
 ### Changer le système de projection
 
-### Changer la méthode de générations
+Par défaut, le système de projection utilisé est le Lambert 93 (EPSG:2154), il est possible cependant de travailler avec d'autres projections, pour peu que l'on connaisse son identifiant EPSG.
 
-Différents mots-clés correspodant à différents types de générations peuvent être utilisés. 
+```java
+Map map = new Map("value");
+map.setCrs(4326);
+map.generate();
+map.exportToGeoTiff("testChangeEPSG");
+```
+		
+### Changer la méthode de génération
+
+La librairie implémente plusieurs algorithmes de générations tous différents. Pour en sélectionner un, les mots-clés correspodant aux différents types de générations peuvent être utilisés. 
  
   - "simplex" : bruit de simplex
   - "perlin" : bruit de Perlin
@@ -75,7 +96,24 @@ Différents mots-clés correspodant à différents types de générations peuven
   - "flat" : valeurs uniformes
   - "diamond" : algorithme diamond square
   
-Remarque :   
+Remarque : L'algoritme de Diamond Square ne marche que sur des maps carrés avec (2 ^ n) + 1 points de coté. L'emprise par défaut pour une map diamond square est donc 129*129. Si l'emprise définit par l'utilisateur ne correspond à ces critères, la méthode generate() renverra une MapNotElligibleToDiamondSquareException. 	
+
+
+### Configurer les algorithmes de générations
+
+Pour les utilisateurs s'y connaissant en générations aléatoires, il est possible de personnaliser les paramètres de générations des différents algorithmes. Les méthodes configurables sont le bruit de simplex, value, perlin. Elles prennent en paramètre :
+
+ - 1er paramètre : Le pas, il doit être de la taille comparable aux nombres de points d'un coté de l'emprise du MNT. Il est fixé par défaut à 1/3 de la longueur du plus petit coté de l'emprise de la map.
+ - 2e paramètre : Le nombre d'octaves, il correspond aux nombres de bruis sommés, plus il est élevé, plus le terrain sera granuleux, il est compris entre 1 et 13 (au dela, possiblité de JavaOutOfMemoryException). Par défaut, le nombre d'octaves est 6.
+ - 3e paramètre : La persistence : le facteur avec lequel on multiplie chaque octave. La persistence est compris entre 0 et 1. Plus elle est élevée, plus le terrain sera cohérent. Par défaut, la persistence est réglé à 0.4.
+
+
+```java
+Map map = new Map("random");
+map.setGenerator(new GeneratorValueNoise(10, 7, 0.3)); // On change de la méthode de génération de random à value
+map.generate();
+map.exportToGeoTiff("testChangeGenerator");
+```
 
 ## Import / Export
 
@@ -124,7 +162,16 @@ map.generate();
 map.exportToGeoTiff("testParis2");
 ```
 
-## Built With
+## Test de vitesses
+
+Voici un graphique représentant les différents temps de calculs des algorithmes. Ces tests ont été réalisés pour une map carré avec 2049 points de cotés, cela fait environ 4.2 Millions de points à calculer. 
+
+![Tes de vitesse](img/speed2.png)
+
+On voit que l'algorithme de génération aléatoire cohérent le plus rapide est le diamond-square. Cependant, ce dernier ne peut générer que des maps carrés de dimension 2**n -1. L'algorithme de génération simplex reste donc le plus rapide dans les autres configurations.
+On notera aussi que l'algorithme remplissant la map de valeurs aléatoires est 10 fois plus longs (0.150s) que l'algorithme remplissant la map avec des 1 (0.013s). Le temps de génération de nombres aléatoires n'est donc pas négligeable.
+
+## Construit avec :
 
 * [Geotools](http://www.dropwizard.io/1.0.2/docs/) - Boite à outils SIG 
 * [Maven](http://www.geotools.org/) - Gestion des dépendances

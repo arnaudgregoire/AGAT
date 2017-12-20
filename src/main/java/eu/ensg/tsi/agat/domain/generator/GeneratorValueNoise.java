@@ -38,8 +38,8 @@ public class GeneratorValueNoise implements IGeneratorStrategy {
 	public GeneratorValueNoise() {
 		super();
 		this.pas = -1;
-		this.nbOctaves = 5;
-		this.persistance = 0.5;
+		this.nbOctaves = 6;
+		this.persistance = 0.4;
 	}
 
 	/**

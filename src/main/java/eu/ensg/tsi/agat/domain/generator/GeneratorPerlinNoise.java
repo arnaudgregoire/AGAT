@@ -4,15 +4,22 @@ import eu.ensg.tsi.agat.domain.utility.Round;
 
 public class GeneratorPerlinNoise implements IGeneratorStrategy {
 
-	private double res;
+	private double pas;
 	private int nbOctaves;
 	private double persistance;
 	
 	public GeneratorPerlinNoise() {
 		super();
-		this.res = 10.0;
-		this.nbOctaves = 5;
-		this.persistance = 0.5;
+		this.pas = 10.0;
+		this.nbOctaves = 6;
+		this.persistance = 0.4;
+	}
+
+	public GeneratorPerlinNoise(double pas, int nbOctaves, double persistance) {
+		super();
+		this.pas = pas;
+		this.nbOctaves = nbOctaves;
+		this.persistance = persistance;
 	}
 
 	public void process(double[][] data) {
@@ -73,8 +80,8 @@ public class GeneratorPerlinNoise implements IGeneratorStrategy {
 	        156,180};
 
 	    //Adapter pour la résolution
-	    x /= res;
-	    y /= res;
+	    x /= pas;
+	    y /= pas;
 
 	    //On récupère les positions de la grille associée à (x,y)
 	    x0 = (int)(x);
