@@ -11,7 +11,7 @@ Les instructions suivantes vous donneront un ordre d'idée des capacités de la 
 
 ### Premier MNT
 
-```
+```java
 Map map = new Map("simplex");
 map.generate();
 map.exportToGeoTiff("testSimplex");
@@ -33,7 +33,7 @@ Différents mots-clés correspodant à différents types de générations peuven
 
 La librairie permet d'exporter des MNT au format 
 
-```
+```java
 Map map = new Map("simplex");
 map.generate();
 map.exportToGeoTiff("testSimplex");
@@ -50,7 +50,7 @@ Ce script créé un MNT et l'enregistre 2 fois dans le sous dossier data:
 On peut charger l'emprise d'un fichier shp pour générer un MNT de la zone. 
 Si l'identifiant EPSG du shapefile ne correspond pas à celui de l'objet Map (l'identifiant par défaut est EPSG:2154, projection Lambert 93), la fonction essaiera de créer l'emprise dans la projection associé au shapefile puis de la reprojeter dans la projection associé à l'objet Map.
 
-```
+```java
 Map map = new Map("simplex");
 map.importShapefileBound("shp/buffer_dissolve_paris.shp");
 testMap.setResolution(testMap.getAdvisedResolution());
@@ -64,7 +64,7 @@ Ici, on notera l'utilisation de la méthode getAdvisedResolution() qui permet si
 
 Même chose que précédemment mais avec un raster.
 
-```
+```java
 Map map = new Map("simplex");
 map.importRasterBound("data/testParis.tiff");
 map.setResolution(testMap.getAdvisedResolution());
