@@ -19,7 +19,52 @@ map.exportToGeoTiff("testSimplex");
 
 Ce script créé un MNT puis le stocke dans le fichier ./data/testSimplex.tiff.  
 
-### Différents types de générations
+## Personaliser sa map
+
+### Changer l'emprise
+
+L'emprise par défaut va du point (0,0) au point (100,100).
+Il y a plusieurs façons de modifier l'emprise d'une map. On peut le faire à la main en définissant une nouvelle emprise à l'aide de 2 points :
+ 
+ - le point en bas à gauche 
+ - le point en haut à droite
+ 
+ ce qui nous donne :
+
+```java
+Map map = new Map("simplex");
+map.setBound(new Bound( new Point(0,0) , new Point(300,200) )); 
+map.generate();
+map.exportToGeoTiff("testChangeEmprise");
+```
+
+La librarie propose aussi d'importer l'emprise d'un shapefile, son utilisation est détaillé dans la partie Import/Export 
+
+### Changer la résolution
+
+AGAT propose à ses utilisateurs de changer la résolution d'une map. Par défaut, la résolution de toutes les maps est fixé à 1.
+
+```java
+Map map = new Map("value");
+map.setResolution(2);
+map.generate();
+map.exportToGeoTiff("testChangeResolution");
+```
+
+Plus la résolution sera précise, plus la taille de la carte sera lourde. Pour éviter ce problème, la librairie propose à ces utilisateurs une résolution conseillé :
+
+```java
+Map map = new Map("perlin");
+map.setResolution(map.getAdvisedResolution());
+map.generate();
+map.exportToGeoTiff("testAdvisedResolution");
+```
+
+### Changer l'amplitude
+
+### Changer le système de projection
+
+### Changer la méthode de générations
 
 Différents mots-clés correspodant à différents types de générations peuvent être utilisés. 
  
@@ -28,8 +73,13 @@ Différents mots-clés correspodant à différents types de générations peuven
   - "random" : bruit blanc
   - "value" : bruit de valeurs
   - "flat" : valeurs uniformes
+  - "diamond" : algorithme diamond square
+  
+Remarque :   
 
-## Exporter sa map
+## Import / Export
+
+### Exporter sa map
 
 La librairie permet d'exporter des MNT au format 
 
@@ -44,6 +94,8 @@ Ce script créé un MNT et l'enregistre 2 fois dans le sous dossier data:
  
   - une premiére fois au format Geotiff
   - une seconde fois au format ASC
+  
+Remarque : l'export au format ASC est sensiblement plus long car non optimisable ( il est écrit avec des libraries bas niveaux I/O). Préférez donc l'export au format geotiff pour de meilleurs performances.   
 
 ### Importer une emprise depuis un fichier vecteur
 

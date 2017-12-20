@@ -1,10 +1,12 @@
 package eu.ensg.tsi.agat.domain;
 
+import eu.ensg.tsi.agat.domain.generator.GeneratorDiamondSquare;
 import eu.ensg.tsi.agat.domain.generator.IGeneratorStrategy;
 import eu.ensg.tsi.agat.geotools.RasterReader;
 import eu.ensg.tsi.agat.geotools.VectorReader;
 import eu.ensg.tsi.agat.persistance.ASCWriter;
 import eu.ensg.tsi.agat.persistance.GeotiffWriter;
+import exceptions.MapNotElligibleToDiamondSquareException;
 import exceptions.StrategyNotFoundException;
 
 public class Map {
@@ -93,7 +95,12 @@ public class Map {
 		GeneratorFactory factory = new GeneratorFactory();
 		this.generator = factory.create(nomStrategy);
 		this.setResolution(1);
-		this.setBound(new Bound( new Point(0,0), new Point(100,100)));
+		if (this.generator instanceof GeneratorDiamondSquare){
+			this.setBound(new Bound( new Point(0,0), new Point(129,129)));
+		}
+		else{
+			this.setBound(new Bound( new Point(0,0), new Point(100,100)));
+		}
 		this.setCrs(2154);
 	};
 	
@@ -115,10 +122,30 @@ public class Map {
 	 */
 	public double[][] generate(){
 		this.pregenerate();
+		if(this.generator instanceof GeneratorDiamondSquare){
+			if(!checkElligibiltyDiamond()){
+			throw new MapNotElligibleToDiamondSquareException("Les dimensions de la map ne sont pas correctes, elles doivent être de la forme (2 ** n) + 1");
+			}
+		}
 		this.generator.process(this.data);
 		return this.data;
 	};
 	
+	
+	private boolean checkElligibiltyDiamond(){
+		boolean elligibilty = true;
+		if(this.getSizeX() != this.getSizeY()){
+			elligibilty = false;
+			int size = this.getSizeX() - 1;
+			while(size == 0 || size == 1){
+				size = size%2;
+			}
+			if(size == 1){
+				elligibilty = false;
+			}
+		}
+		return elligibilty;
+	}
 	
 	/**
 	 * Importe dans un objet de classe Bound les coordonnées
@@ -170,7 +197,7 @@ public class Map {
 	}
 	
 	/**
-	 * Calcule pour l'utilisateur une résolution adapté é la carte é savoir la longueur 
+	 * Calcule pour l'utilisateur une résolution adapté à la carte à savoir la longueur 
 	 * du plus petit coté /100
 	 * @return la résolution conseillé
 	 */
@@ -179,7 +206,14 @@ public class Map {
 		return (int) min/100;
 	}
 	
-
+	public void resize(int zFactor){
+		for (int i = 0; i < this.getSizeX(); i++) {
+			for (int j = 0; j < this.getSizeY(); j++) {
+				this.data[i][j] *= zFactor;
+			}
+		}
+	}
+	
 	public double[][] getData() {
 		return data;
 	}

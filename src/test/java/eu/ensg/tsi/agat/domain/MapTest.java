@@ -186,5 +186,21 @@ public class MapTest {
 		map.exportToGeoTiff("testPariiiiiiiis");
 	}
 	
+	@Test
+	public void testZfactor(){
+		Map map = new Map("diamond");
+		map.generate();
+		map.resize(255);
+		map.exportToGeoTiff("testresize");
+	}
+	
+	@Test
+	public void test3(){
+		Map map = new Map("simplex");
+		map.setBound(new Bound( new Point(0,0) , new Point(300,200) )); 
+		map.generate();
+		map.exportToGeoTiff("testChangeEmprise");
+	}
+	
 }
 	
