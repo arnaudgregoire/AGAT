@@ -2,12 +2,22 @@ package eu.ensg.tsi.agat.domain.generator;
 
 import eu.ensg.tsi.agat.domain.utility.Round;
 
+/**
+ * Une rééimplémentation en JAva du code en C du site openclassrooms 
+ * https://openclassrooms.com/courses/bruit-de-perlin
+ * @author arnaudgregoire
+ *
+ */
 public class GeneratorPerlinNoise implements IGeneratorStrategy {
 
 	private double pas;
 	private int nbOctaves;
 	private double persistance;
 	
+	/**
+	 * Le constructeur haut niveau avec paramètres prédéfini pour utilisateurs débutants
+	 * 
+	 */
 	public GeneratorPerlinNoise() {
 		super();
 		this.pas = 10.0;
@@ -15,6 +25,14 @@ public class GeneratorPerlinNoise implements IGeneratorStrategy {
 		this.persistance = 0.4;
 	}
 
+	/**
+	 * Le constructeur bas niveau pour utilisateurs avancés
+	 * Les différents paramètres que prend le bruit de Perlin en entrée sont 
+	 * expliqués plus en détails dans la documentation utilisateur
+	 * @param pas 
+	 * @param nbOctaves
+	 * @param persistance
+	 */
 	public GeneratorPerlinNoise(double pas, int nbOctaves, double persistance) {
 		super();
 		this.pas = pas;
@@ -31,6 +49,13 @@ public class GeneratorPerlinNoise implements IGeneratorStrategy {
 
 	}
 	
+	/**
+	 * On reprend ici le système d'addition de différents bruits pour 
+	 * une meilleure cohérence
+	 * @param x l'abcisse de la position 
+	 * @param y l'ordonnée de la position
+	 * @return
+	 */
 	private double perlinNoise(double x, double y) {     
         double somme = 0;
         double p = 1;
@@ -44,6 +69,12 @@ public class GeneratorPerlinNoise implements IGeneratorStrategy {
         return somme * (1 - persistance) / (1 - p);
 }
 	
+	/**
+	 * L'algorithme du bruit de Perlin d'origine basé sur une table de permutations
+	 * @param x l'abcisse de la position 
+	 * @param y l'ordonnée de la position
+	 * @return
+	 */
 	private double get2DPerlinNoiseValue(double x, double y)
 	{
 	    double tempX,tempY;

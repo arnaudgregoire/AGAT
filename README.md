@@ -10,7 +10,40 @@ Algorithmes de Génération Aléatoires de Terrains
 Le projet AGAT est en intégration continue avec Travis.
 Les instructions suivantes vous donneront un ordre d'idée des capacités de la librairie AGAT et de comment les utiliser. Tous les morceaux de codes présentés dans cette documentation utilisateur sont éxécutés à chaque lecture des tests unitaires. Leurs résultats est enregistré dans le dossier data.
 
+
+### Installation
+
+La librarie fonctionne avec Maven. Il faut donc que Maven soit installé. De plus, un Java Runtime Environnement (JRE 8 ou plus récent) est requis. Pour installer Maven, faire
+
+```sh
+sudo apt install maven
+```
+Pour compiler le projet, on lance Maven avec la commande "install" à la racine du répertoire AGAT (là où se situe le pom.xml
+
+```sh
+mvn install
+```
+Une connection internet sera aussi nécessaire pour télécharger les dépendances.
+
+
+### Ajouter AGAT à votre projet
+
+Pour inclure AGAT à votre projet, ajouter une dépendance dans le pom.xml
+
+```xml
+<dependency>
+  <groupId>eu.ensg.tsi</groupId>
+  <artifactId>agat</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+</dependency>
+```
+AGAT est désormais à votre service.
+Remarque : Les MNT que vous génererez seront stockés dans un sous dossier data. Soyez sur d'en avoir un dans votre projet avant d'enregistrer des fichier.
+ 
+
 ### Premier MNT
+
+Voici un exemple tout simple générant un premier MNT.
 
 ```java
 Map map = new Map("simplex");

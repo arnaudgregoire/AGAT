@@ -10,13 +10,21 @@ import eu.ensg.tsi.agat.domain.utility.Round;
  */
 public class GeneratorDiamondSquare implements IGeneratorStrategy {
 	
-	
+	/**
+	 * L'implémentation de la méthode hérité de l'interface IGeneratorStrategy
+	 * C'est cette méthode qui est appelé par la classe Map au moment de la fonction generate()
+	 * 
+	 */
 	@Override
 	public void process(double[][] data) {
 		diamondsquare(data);
 		resample(data);
 	}
 	
+	/**
+	 * réétalone les valeurs de l'algorithme pour les recentrer entre 0 et 1
+	 * @param data
+	 */
 	private void resample(double[][] data){
 		double min = 0;
 		double max = 0;
@@ -39,7 +47,10 @@ public class GeneratorDiamondSquare implements IGeneratorStrategy {
 		
 	}
 	
-	
+	/**
+	 * L'algorithme de diamant - carré
+	 * @param data
+	 */
 	private void diamondsquare(double[][] data){
 		int h = data.length;
 		
@@ -50,7 +61,7 @@ public class GeneratorDiamondSquare implements IGeneratorStrategy {
 				
 		int i = data.length -1;
 		
-		
+		//phase diamant
 		while(i>1){
 			int id = i / 2;
 			for (int x = id; x <= h - 1; x += i) {
@@ -63,6 +74,7 @@ public class GeneratorDiamondSquare implements IGeneratorStrategy {
 					data[x][y] = moyenne + (Math.random()*2 -1) * id;
 				}
 			}
+			//phase carré
 			for (int x = 0; x <= h - 1; x += id) {
 				int decalage;
 				if (x % i == 0)

@@ -1,5 +1,10 @@
 package eu.ensg.tsi.agat.domain.generator;
 
+/**
+ * Méthode la plus rapide pour générer un MNT, composé uniquement de 1
+ * @author arnaudgregoire
+ *
+ */
 public class GeneratorFlat implements IGeneratorStrategy {
 
 	/**

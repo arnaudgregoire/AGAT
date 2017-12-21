@@ -131,7 +131,10 @@ public class Map {
 		return this.data;
 	};
 	
-	
+	/**
+	 * Vérifie si la map est carré et que son coté est bien un multiple de 2**n -1
+	 * @return
+	 */
 	private boolean checkElligibiltyDiamond(){
 		boolean elligibilty = true;
 		if(this.getSizeX() != this.getSizeY()){
@@ -206,6 +209,11 @@ public class Map {
 		return (int) min/100;
 	}
 	
+	/**
+	 * Rééchantillone les valeurs du MNT (par défaut entre 0 et 1) pour les mettre
+	 * entre 0 et zFactor, zFactor étant l'altitude entré par l'utilisateur
+	 * @param zFactor l'altitude max des données entré par l'utilisateur
+	 */
 	public void resize(int zFactor){
 		for (int i = 0; i < this.getSizeX(); i++) {
 			for (int j = 0; j < this.getSizeY(); j++) {

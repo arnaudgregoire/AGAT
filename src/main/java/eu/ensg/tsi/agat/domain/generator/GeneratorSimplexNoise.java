@@ -43,6 +43,7 @@ public class GeneratorSimplexNoise implements IGeneratorStrategy {
 
 	/**
 	 * L'implémentation de la méthode process issu de l'interface IGeneratorStrategy
+	 * La méthode process fait appel au package simplex puis à la classe SimplexNoise
 	 */
 	public void process(double[][] data) {
 	    SimplexNoise simplexNoise=new SimplexNoise(this.numberOfOctaves, data.length,this.persistence,1);

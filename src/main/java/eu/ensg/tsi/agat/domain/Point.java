@@ -1,5 +1,10 @@
 package eu.ensg.tsi.agat.domain;
 
+/**
+ * Une simple classe de Point, utilisé pour définir des emprises (classe Bound)
+ * @author arnaudgregoire
+ *
+ */
 public class Point {
 	private double x;
 	private double y;

@@ -14,7 +14,16 @@ import eu.ensg.tsi.agat.domain.Bound;
 import eu.ensg.tsi.agat.domain.Point;
 
 public class RasterReader implements IReader {
-
+	
+	/**
+	 * 	
+	 * La méthode appelé par la classe Map dans la fonction d'import de raster
+	 * Si il n'existe pas de fichier ou que le fichier n'a pas réussi à être lu,
+	 * une emprise nulle sera renvoyé
+	 * @param FilePath le nom du fichier
+	 * @param epsg l'identifiant epsg de la map
+	 * @return L'emprise associé au shapefile ouvert
+	 */
 	@Override
 	public Bound getBoundofFile(String filePath, int epsg) {
 		double left   = Double.NaN; 
@@ -45,6 +54,7 @@ public class RasterReader implements IReader {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("WARNING : le fichier n'a pas pu être lu, une emprise nulle a été généré");
 		}
 	
 		return new Bound( new Point(left,bottom), new Point(right,top));
