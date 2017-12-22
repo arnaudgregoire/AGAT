@@ -21,6 +21,6 @@ public class GeneratorPerlinNoiseTest {
 			}
 		}
 		assertNotEquals(0, (int) somme);
-		map.exportToGeoTiff("testperlin");
+		map.exportToGeoTiff("data/testperlin");
 	}
 }

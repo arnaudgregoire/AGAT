@@ -24,7 +24,7 @@ public class GeneratorSimplexNoiseTest {
 			}
 		}
 		assertNotEquals(0, (int) somme);
-		map.exportToGeoTiff("testgrosSimplex");
+		map.exportToGeoTiff("data/testgrosSimplex");
 	}
 
 }

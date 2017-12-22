@@ -88,7 +88,7 @@ public class MapTest {
 		assertNotSame(Double.NaN, testMap.getBound().getUpperRight().getY());
 		testMap.setResolution(testMap.getAdvisedResolution());
 		testMap.generate();
-		testMap.exportToASC("testParis3");
+		testMap.exportToASC("data/testParis3");
 	}
 	
 	@Test
@@ -106,7 +106,7 @@ public class MapTest {
 		assertNotSame(Double.NaN, testMap.getBound().getUpperRight().getY());
 		//testMap.setResolution(testMap.getAdvisedResolution());
 		//testMap.generate();
-		//testMap.exportToGeoTiff("testParis2");
+		//testMap.exportToGeoTiff("data/testParis2");
 	}
 	
 	@Test
@@ -146,7 +146,7 @@ public class MapTest {
 		testMap.generate();
 		int nbExceptions = 0;
 		try {
-			testMap.exportToASC("testFlat");
+			testMap.exportToASC("data/testFlat");
 		}
 		catch(Exception e) {
 			nbExceptions ++;
@@ -165,14 +165,14 @@ public class MapTest {
 		testMap.generate();
 		int nbExceptions = 0;
 		try {
-			testMap.exportToGeoTiff("testFlat");
+			testMap.exportToGeoTiff("data/testFlat");
 		}
 		catch(Exception e) {
 			nbExceptions ++;
 		}
 		assertEquals(nbExceptions, 0);
 		nbExceptions = 0;
-		testMap.exportToGeoTiff("/////////////un mauvais nom testFlat2");
+		testMap.exportToGeoTiff("data//////////////un mauvais nom testFlat2");
 		File f = new File("data//////////////un mauvais nom testFlat2");	
 		assertEquals(f.exists(), false);
 	}
@@ -184,7 +184,7 @@ public class MapTest {
 		map.setResolution(map.getAdvisedResolution());
 		System.out.println(map.getResolution());
 		map.generate();
-		map.exportToGeoTiff("testPariiiiiiiis");
+		map.exportToGeoTiff("data/testPariiiiiiiis");
 	}
 	
 	@Test
@@ -192,7 +192,7 @@ public class MapTest {
 		Map map = new Map("diamond");
 		map.generate();
 		map.resize(255);
-		map.exportToGeoTiff("testresize");
+		map.exportToGeoTiff("data/testresize");
 	}
 	
 	@Test
@@ -200,7 +200,7 @@ public class MapTest {
 		Map map = new Map("simplex");
 		map.setBound(new Bound( new Point(0,0) , new Point(300,200) )); 
 		map.generate();
-		map.exportToGeoTiff("testChangeEmprise");
+		map.exportToGeoTiff("data/testChangeEmprise");
 	}
 	
 	@Test
@@ -208,7 +208,7 @@ public class MapTest {
 		Map map = new Map("value");
 		map.setCrs(4326);
 		map.generate();
-		map.exportToGeoTiff("testChangeEPSG");
+		map.exportToGeoTiff("data/testChangeEPSG");
 	}
 	
 	@Test
@@ -216,7 +216,7 @@ public class MapTest {
 		Map map = new Map("random");
 		map.setGenerator(new GeneratorValueNoise(10, 7, 0.3));
 		map.generate();
-		map.exportToGeoTiff("testChangeGenerator");
+		map.exportToGeoTiff("data/testChangeGenerator");
 	}
 	
 }

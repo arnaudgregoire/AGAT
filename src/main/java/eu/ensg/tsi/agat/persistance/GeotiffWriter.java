@@ -24,7 +24,7 @@ public class GeotiffWriter implements IWriter {
 
 	@Override
 	public void write(String nomFichier, Map map)  {
-		String cheminAcces = "data/" + nomFichier + ".tiff";
+		String cheminAcces =  nomFichier + ".tiff";
 	    final File geotiff = new File(new StringBuilder().append(cheminAcces).toString());
 
         

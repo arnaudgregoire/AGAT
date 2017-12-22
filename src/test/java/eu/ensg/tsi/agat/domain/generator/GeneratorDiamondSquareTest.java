@@ -38,7 +38,7 @@ public class GeneratorDiamondSquareTest {
 			}
 		}
 		assertNotEquals(0, (int) somme);
-		map.exportToGeoTiff("testdiamond");
+		map.exportToGeoTiff("data/testdiamond");
 	}
 	
 	
@@ -47,7 +47,7 @@ public class GeneratorDiamondSquareTest {
 		Map map = new Map("perlin");
 		map.setResolution(map.getAdvisedResolution());
 		map.generate();
-		map.exportToGeoTiff("testAdvisedResolution");
+		map.exportToGeoTiff("data/testAdvisedResolution");
 	}
 
 }

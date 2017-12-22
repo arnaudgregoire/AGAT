@@ -13,7 +13,7 @@ public class GeotiffWriterTest {
 		testCarte.generate();	
 		int nbExceptions = 0;
 		try {
-			testCarte.exportToASC("testValue");
+			testCarte.exportToASC("data/testValue");
 		}
 		catch(Exception e) {
 			nbExceptions ++;
@@ -27,7 +27,7 @@ public class GeotiffWriterTest {
 		testCarte.generate();	
 		int nbExceptions = 0;
 		try {
-			testCarte.exportToGeoTiff("testValue");
+			testCarte.exportToGeoTiff("data/testValue");
 		}
 		catch(Exception e) {
 			nbExceptions ++;

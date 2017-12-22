@@ -38,8 +38,7 @@ Pour inclure AGAT à votre projet, ajouter une dépendance dans le pom.xml
 </dependency>
 ```
 AGAT est désormais à votre service.
-Remarque : Les MNT que vous génererez seront stockés dans un sous dossier data. Soyez sur d'en avoir un dans votre projet avant d'enregistrer des fichier.
- 
+
 
 ### Premier MNT
 
@@ -48,7 +47,7 @@ Voici un exemple tout simple générant un premier MNT.
 ```java
 Map map = new Map("simplex");
 map.generate();
-map.exportToGeoTiff("testSimplex");
+map.exportToGeoTiff("data/testSimplex");
 ```
 
 Ce script créé un MNT puis le stocke dans le fichier ./data/testSimplex.tiff.  
@@ -69,7 +68,7 @@ Il y a plusieurs façons de modifier l'emprise d'une map. On peut le faire à la
 Map map = new Map("simplex");
 map.setBound(new Bound( new Point(0,0) , new Point(300,200) )); 
 map.generate();
-map.exportToGeoTiff("testChangeEmprise");
+map.exportToGeoTiff("data/testChangeEmprise");
 ```
 
 La librarie propose aussi d'importer l'emprise d'un shapefile, son utilisation est détaillé dans la partie Import/Export. 
@@ -82,7 +81,7 @@ AGAT propose à ses utilisateurs de changer la résolution d'une map. Par défau
 Map map = new Map("value");
 map.setResolution(2);
 map.generate();
-map.exportToGeoTiff("testChangeResolution");
+map.exportToGeoTiff("data/testChangeResolution");
 ```
 
 Plus la résolution sera précise, plus la taille de la carte sera lourde. Pour éviter ce problème, la librairie propose à ces utilisateurs une résolution conseillé :
@@ -91,7 +90,7 @@ Plus la résolution sera précise, plus la taille de la carte sera lourde. Pour 
 Map map = new Map("perlin");
 map.setResolution(map.getAdvisedResolution());
 map.generate();
-map.exportToGeoTiff("testAdvisedResolution");
+map.exportToGeoTiff("data/testAdvisedResolution");
 ```
 
 La résolution sera alors de la longeur du plus petit coté de l'emprise /100.
@@ -105,7 +104,7 @@ l'altitude maximum voulu.
 Map map = new Map("diamond");
 map.generate();
 map.resize(255); //altitude max souhaité
-map.exportToGeoTiff("testresize");
+map.exportToGeoTiff("data/testresize");
 ```
 
 ### Changer le système de projection
@@ -116,7 +115,7 @@ Par défaut, le système de projection utilisé est le Lambert 93 (EPSG:2154), i
 Map map = new Map("value");
 map.setCrs(4326);
 map.generate();
-map.exportToGeoTiff("testChangeEPSG");
+map.exportToGeoTiff("data/testChangeEPSG");
 ```
 		
 ### Changer la méthode de génération
@@ -146,7 +145,7 @@ Pour les utilisateurs s'y connaissant en générations aléatoires, il est possi
 Map map = new Map("random");
 map.setGenerator(new GeneratorValueNoise(10, 7, 0.3)); // On change de la méthode de génération de random à value
 map.generate();
-map.exportToGeoTiff("testChangeGenerator");
+map.exportToGeoTiff("data/testChangeGenerator");
 ```
 
 ## Import / Export
@@ -158,8 +157,8 @@ La librairie permet d'exporter des MNT au format
 ```java
 Map map = new Map("simplex");
 map.generate();
-map.exportToGeoTiff("testSimplex");
-map.exportToASC("testSimplex");
+map.exportToGeoTiff("data/testSimplex");
+map.exportToASC("data/testSimplex");
 ```
 
 Ce script créé un MNT et l'enregistre 2 fois dans le sous dossier data:
@@ -179,7 +178,7 @@ Map map = new Map("simplex");
 map.importShapefileBound("shp/buffer_dissolve_paris.shp");
 testMap.setResolution(testMap.getAdvisedResolution());
 map.generate();
-map.exportToGeoTiff("testParis");
+map.exportToGeoTiff("data/testParis");
 ```
 
 Ici, on notera l'utilisation de la méthode getAdvisedResolution() qui permet simplement de renvoyer la valeur conseillé par la librarie pour effectuer la génération. En effet, si la résolution est trop élevée, la taille du fichier et les temps de calculs vont trés vite augmenter ( 45 secondes pour 100 000 000 de points avec la méthode de bruit simplex ).
@@ -193,7 +192,7 @@ Map map = new Map("simplex");
 map.importRasterBound("data/testParis.tiff");
 map.setResolution(testMap.getAdvisedResolution());
 map.generate();
-map.exportToGeoTiff("testParis2");
+map.exportToGeoTiff("data/testParis2");
 ```
 
 ## Test de vitesses

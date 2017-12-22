@@ -13,7 +13,7 @@ public class ASCWriter implements IWriter {
 	public String buffer = "";
 	
 	/**
-	 * On marque notre String Buffer dans le fichier data/nomFichier.asc
+	 * On marque notre String Buffer dans le fichier nomFichier.asc
 	 */
 	public void write(String nomFichier, Map map) {
 		Writer writer = null;
@@ -21,7 +21,7 @@ public class ASCWriter implements IWriter {
 		addData(map);
 		try {
 		    writer = new BufferedWriter(new OutputStreamWriter(
-		          new FileOutputStream("data/" + nomFichier + ".asc"), "utf-8"));
+		          new FileOutputStream( nomFichier + ".asc"), "utf-8"));
 		    writer.write(this.buffer);
 		} catch (IOException ex) {
 		  // report
