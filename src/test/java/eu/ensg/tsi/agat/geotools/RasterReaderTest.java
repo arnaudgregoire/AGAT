@@ -12,7 +12,7 @@ public class RasterReaderTest {
 	public void test() {
 		Map map = new Map("simplex");
 		map.generate();	
-		map.importRasterBound("data/testValue.tiff");
+		map.importRasterBound("shp/testValue.tiff");
 		assertEquals(100, (int) map.getBound().getUpperRight().getX());
 		assertEquals(100, (int) map.getBound().getUpperRight().getY());
 	}

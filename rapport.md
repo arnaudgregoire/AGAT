@@ -71,3 +71,7 @@ De plus, le projet est en intégration continue avec Travis (https://travis-ci.o
  - Un mini-rapport explicitant la conduite du projet, et justifiant les choix techniques 
 
  - Un diagramme de classe illustrant l’API développée : Le diagramme de classe d'AGAT est disponible en tant que projet StarUML ainsi qu'en photo dans le dossier uml.
+
+ - le dossier img contient une galerie d'image des MNT générés en 3D avec AGAT
+
+ - le dossier colormap contient l'ensemble de règles utilisés pour colorier le MNT en fonction de l'altitude

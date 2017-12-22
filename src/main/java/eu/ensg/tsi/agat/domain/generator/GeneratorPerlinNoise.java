@@ -20,7 +20,7 @@ public class GeneratorPerlinNoise implements IGeneratorStrategy {
 	 */
 	public GeneratorPerlinNoise() {
 		super();
-		this.pas = 10.0;
+		this.pas = -1;
 		this.nbOctaves = 6;
 		this.persistance = 0.4;
 	}
@@ -41,6 +41,11 @@ public class GeneratorPerlinNoise implements IGeneratorStrategy {
 	}
 
 	public void process(double[][] data) {
+		
+		if(this.pas == -1) {
+			this.pas  = (int) Math.min(data.length, data[0].length)/3;
+		}
+		
 		for (int i = 0; i < data.length; i++) {
 			for (int j = 0; j < data[0].length; j++) {
 				data[i][j] =(double) Round.round2Dec(perlinNoise(i,j)+0.5);

@@ -18,12 +18,22 @@ La librarie fonctionne avec Maven. Il faut donc que Maven soit installé. De plu
 ```sh
 sudo apt install maven
 ```
+
 Pour compiler le projet, on lance Maven avec la commande "install" à la racine du répertoire AGAT (là où se situe le pom.xml
 
 ```sh
 mvn install
 ```
-Une connection internet sera aussi nécessaire pour télécharger les dépendances.
+
+Il est aussi possible d'installer la librairie à partir du package .jar (version 0.0.1-SNAPSHOT) situé dans le dossier target 
+
+```sh
+
+Après téléchargment du package, ouvrir un terminal dans le dossier contenant le fichier .jar, et lancer la commande
+
+```sh
+$ mvn install:install-file -Dfile=agat-0.0.1-SNAPSHOT.jar -DgroupId=eu.ensg.tsi -DartifactId=agat -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar
+```
 
 
 ### Ajouter AGAT à votre projet
