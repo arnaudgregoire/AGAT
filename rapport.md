@@ -28,14 +28,33 @@ De plus, pour compiler, le projet nécessite Maven, de par la nature même du pr
 
 ### Conception & design pattern
 
+ Durant la conception, il a été décidé d'utiliser les designs patterns stratégie et fabrique statique, détaillé dans le cours de Mickael Borne. (http://mborne.github.io/cours-patron-conception/#1).
 
+ Le patron stratégie est utilisé pour regrouper les différents comportements de l'application ( génération diamond square, simplex, value, etc ...) dans une seule interface. Cela permet à la classe Map d'implémenter indifféremment n'importe lequel des algorithmes de générations.
 
+ Le design pattern fabrique statique est utilisé pour générer facilement des instances de méthodes de générations. Il est ainsi plus facile pour l'utilisateur de manipuler les objets d'algorithmes de générations.
+
+### Algorithmes de générations aléatoires implémentés
+
+Après un bref état de l'art, il a été décidé d'implémenter les méthodes suivantes :
+
+ - bruit de valeurs
+ - bruit de Perlin
+ - bruit de Simplex
+ - Algorithme de Diamant-Carré
+
+Leurs implémentations dans la librarie est très largement basé sur des implémentations existantes ou de la réécriture du pseudo code. Toutes les sources sont cités dans les différents fichiers.
 
 ## Conduite du projet
 
+### Test Driven Development
+
  Le projet a été réalisé dans l'ensemble en Test Driven Development. 95.5% du code est couvert par des test unitaires. Ce nombre résulte du test de couverture de ECLemma.
 
+### Intégration continue
+
 De plus, le projet est en intégration continue avec Travis (https://travis-ci.org/arnaudgregoire/AGAT). Cela donne à l'utilisateur la garantie que tous les tests joués fonctionnent.
+
 
 ## Rendu 
 
