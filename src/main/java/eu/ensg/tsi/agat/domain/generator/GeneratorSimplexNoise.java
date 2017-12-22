@@ -37,6 +37,7 @@ public class GeneratorSimplexNoise implements IGeneratorStrategy {
 		super();
 		this.persistence = 0.4;
 		this.numberOfOctaves = 6;
+		this.pas = -1;
 	}
 
 
@@ -46,7 +47,10 @@ public class GeneratorSimplexNoise implements IGeneratorStrategy {
 	 * La méthode process fait appel au package simplex puis à la classe SimplexNoise
 	 */
 	public void process(double[][] data) {
-	    SimplexNoise simplexNoise=new SimplexNoise(this.numberOfOctaves, data.length,this.persistence,1);
+		if(this.pas == -1) {
+			this.pas  = (int) Math.min(data.length, data[0].length)/3;
+		}
+	    SimplexNoise simplexNoise=new SimplexNoise(this.numberOfOctaves, data.length,this.persistence,this.pas);
 
 	    double moyenne = 0;
 	    

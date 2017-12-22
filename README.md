@@ -27,7 +27,6 @@ mvn install
 
 Il est aussi possible d'installer la librairie à partir du package .jar (version 0.0.1-SNAPSHOT) situé dans le dossier target 
 
-```sh
 
 Après téléchargment du package, ouvrir un terminal dans le dossier contenant le fichier .jar, et lancer la commande
 
@@ -209,7 +208,7 @@ map.exportToGeoTiff("data/testParis2");
 
 Voici un graphique représentant les différents temps de calculs des algorithmes. Ces tests ont été réalisés pour une map carré avec 2049 points de cotés, cela fait environ 4.2 Millions de points à calculer. 
 
-![Tes de vitesse](img/speed2.png)
+![Tes de vitesse](img/speedTest.png)
 
 On voit que l'algorithme de génération aléatoire cohérent le plus rapide est le diamond-square. Cependant, ce dernier ne peut générer que des maps carrés de dimension 2**n -1. L'algorithme de génération simplex reste donc le plus rapide dans les autres configurations.
 On notera aussi que l'algorithme remplissant la map de valeurs aléatoires est 10 fois plus longs (0.150s) que l'algorithme remplissant la map avec des 1 (0.013s). Le temps de génération de nombres aléatoires n'est donc pas négligeable.
