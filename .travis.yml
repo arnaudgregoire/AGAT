@@ -1,7 +1,5 @@
 language: java
 
-dist: trusty
-
 stages:
   - compile
   - test
@@ -12,10 +10,10 @@ jobs:
   include:
     - stage: compile
       script: mvn compile
-     # stage name not required, will continue to use `test`
+      # stage name not required, will continue to use `test`
     
-   - stage: test
-     script: mvn test
+    - stage: test
+      script: mvn test
      
-   - stage: deploy
-     script: mvn install
+    - stage: deploy
+      script: mvn install
