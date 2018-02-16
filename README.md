@@ -3,11 +3,11 @@
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![Build Status](https://travis-ci.org/arnaudgregoire/AGAT.svg?branch=master)](https://travis-ci.org/arnaudgregoire/AGAT)
 
-Algorithmes de Génération Aléatoires de Terrains
+Algorithmes de Génération Aléatoires de Terrains 
 
 ## Introduction
 
-Le projet AGAT est en intégration continue avec Travis.
+Le projet AGAT est en intégration continue avec Travis CI/CD.
 Les instructions suivantes vous donneront un ordre d'idée des capacités de la librairie AGAT et de comment les utiliser. Tous les morceaux de codes présentés dans cette documentation utilisateur sont éxécutés à chaque lecture des tests unitaires. Leurs résultats est enregistré dans le dossier data.
 
 
