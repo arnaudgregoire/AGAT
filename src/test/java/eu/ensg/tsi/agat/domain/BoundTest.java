@@ -20,6 +20,7 @@ public class BoundTest {
 		
 		assertEquals(2,(int) test.getUpperRight().getX());
 		assertEquals(2,(int) test.getUpperRight().getY());
+		assertTrue(false);
 		
 		test = new Bound(new Point(0,2), new Point(0,0), new Point(2,0), new Point(2,2));
 		
